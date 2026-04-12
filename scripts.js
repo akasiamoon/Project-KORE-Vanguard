@@ -1,23 +1,16 @@
 let heartbeatInterval;
 
-// FORCE VIBRATION TEST: Tap anywhere to see if the motor even wakes up
-document.addEventListener('click', function() {
-    if ("vibrate" in navigator) {
-        // A short "I'm alive" buzz
-        navigator.vibrate(100);
-        console.log("Hardware: Vibration Handshake Sent");
-    }
-});
-
 window.onload = function() {
-    // We removed the auto-start for this test to focus on the TAP
-    console.log("Ready. Tap the desk to engage sanctuary.");
+    console.log("Observer active. Tap screen to authorize haptics and start the rhythm.");
 };
 
 function engageSanctuary() {
     const layer = document.getElementById('somatic-layer');
-    if (layer) {
+    const world = document.querySelector('.wayshrine-container');
+    
+    if (layer && !layer.classList.contains('active')) {
         layer.classList.add('active');
+        if (world) world.classList.add('breathing'); // Start the visual breath
         startHeartbeat();
     }
 }
@@ -25,7 +18,10 @@ function engageSanctuary() {
 function startHeartbeat() {
     if ("vibrate" in navigator) {
         clearInterval(heartbeatInterval);
-        // Standard 60BPM pulse
+        // Initial handshake
+        navigator.vibrate(100);
+        
+        // Match the 4-second breath cycle (2 pulses per breath)
         heartbeatInterval = setInterval(() => {
             navigator.vibrate(150); 
         }, 1000);
@@ -35,8 +31,11 @@ function startHeartbeat() {
 function dismissHijack(event) {
     if (event) event.stopPropagation(); 
     const layer = document.getElementById('somatic-layer');
+    const world = document.querySelector('.wayshrine-container');
+    
     if (layer) {
         layer.classList.remove('active');
+        if (world) world.classList.remove('breathing'); // Stop the visual breath
         stopHeartbeat();
     }
 }
@@ -47,5 +46,8 @@ function stopHeartbeat() {
 }
 
 function triggerSomaticHijack() {
-    engageSanctuary();
+    const layer = document.getElementById('somatic-layer');
+    if (layer && !layer.classList.contains('active')) {
+        engageSanctuary();
+    }
 }
