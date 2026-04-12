@@ -46,3 +46,21 @@ body, html {
     height: 100vh;
     display: block;
 }
+/* The Amber Overlay */
+.somatic-filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* This lets you click "through" it */
+    z-index: 9999;
+    background-color: rgba(255, 126, 0, 0.4); /* Deep sunset amber */
+    opacity: 0; 
+    transition: opacity 2s ease-in-out; /* The slow, calming fade */
+}
+
+/* The "On" Switch */
+.somatic-filter.active {
+    opacity: 1;
+}
