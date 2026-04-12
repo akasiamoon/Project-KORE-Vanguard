@@ -15,10 +15,16 @@ let isSanctuaryActive = false;
 function initializeEngine() {
     console.log("KORE Engine Initializing...");
 
-    // 1. PULL THE CURTAIN FIRST (So you never get stuck on the intro screen)
+   // 1. PULL THE CURTAIN FIRST (So you never get stuck on the intro screen)
     const intro = document.getElementById('intro-screen');
     if (intro) {
         intro.classList.remove('active');
+        
+        // THE FIX: Wait 1 second for the fade, then annihilate the invisible wall
+        setTimeout(() => {
+            intro.style.display = 'none'; 
+            console.log("Invisible wall destroyed. Wayshrine is now clickable.");
+        }, 1000);
     }
 
     // 2. UNLOCK THE AUDIO & HAPTICS (Must happen exactly during the click)
