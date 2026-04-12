@@ -70,3 +70,14 @@ html, body {
 .somatic-filter.active .exit-trigger {
     display: block;
 }
+/* The Breathing Animation */
+@keyframes somatic-pulse {
+    0% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.02); filter: brightness(1.2) sepia(0.3); } /* The "Inhale" */
+    100% { transform: scale(1); filter: brightness(1); } /* The "Exhale" */
+}
+
+/* Applying the breath to the container when active */
+.wayshrine-container.breathing {
+    animation: somatic-pulse 4s ease-in-out infinite; /* A slow, deep 4-second breath cycle */
+}
