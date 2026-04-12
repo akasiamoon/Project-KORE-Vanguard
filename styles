@@ -22,3 +22,22 @@
 .somatic-filter.active {
     opacity: 1;
 }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Keeps the user focused in the room */
+    background-color: #000; /* Deep black background for the "Void" */
+}
+
+.wayshrine-container {
+    background-image: url('assets/ProjectKore.png');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
