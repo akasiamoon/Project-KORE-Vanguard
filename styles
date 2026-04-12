@@ -38,10 +38,11 @@ body, html {
 }
 
 .wayshrine-container {
-    background-image: url('ProjectKore.png') !important;
+    background-image: url('./ProjectKore.png') !important; /* The ./ tells it to look in the root */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
+    display: block;
 }
