@@ -24,7 +24,40 @@ html, body {
     transition: opacity 2s ease-in-out;
     opacity: 0; 
 }
+/* Ensure the filter covers EVERYTHING */
+.somatic-filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* This allows clicks to hit the desk normally */
+    z-index: 9998; /* High, but below the X */
+    background-color: rgba(255, 126, 0, 0.4);
+    opacity: 0; 
+    transition: opacity 2s ease-in-out;
+}
 
+/* The Safety Valve: Make this the highest point in the app */
+.exit-trigger {
+    position: fixed; /* Changed from absolute to fixed */
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.7); /* Darker for better contrast */
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    pointer-events: auto; /* CRITICAL: This allows the X to be clicked while the filter is active */
+    z-index: 9999; /* The absolute highest layer */
+    display: none; /* Hidden until the glow starts */
+}
+
+/* Show the X only when the amber filter is active */
+.somatic-filter.active .exit-trigger {
+    display: block;
+}
 .somatic-filter.active {
     opacity: 1;
 }
