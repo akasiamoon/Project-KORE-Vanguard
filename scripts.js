@@ -1,82 +1,67 @@
-// --- THE KORE VANGUARD ENGINE: PHASE 1 --- //
-
 let heartbeatInterval;
-let recognition; // The Speech Engine
+let recognition; 
+let isSanctuaryActive = false;
 
-// 1. Initialize the Vocal Tether
-function initializeVocalTether() {
-    // Check if the browser supports Speech Recognition (Chrome/Safari)
+function initializeEngine() {
+    console.log("KORE Engine Initializing...");
+    if ("vibrate" in navigator) navigator.vibrate(50); // Haptic handshake
+
+    // Speech Setup
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
-        recognition.continuous = true; // Keep listening until dismissed
-        recognition.interimResults = true; // Read words as they are spoken
+        recognition.continuous = false; // We will manually loop it so it doesn't crash
+        recognition.interimResults = true;
         
-        recognition.onstart = function() {
-            console.log("PAX is listening...");
-        };
+        try { recognition.start(); setTimeout(() => recognition.stop(), 400); } catch(e) {}
 
         recognition.onresult = function(event) {
-            let transcript = '';
-            for (let i = event.resultIndex; i < event.results.length; ++i) {
-                transcript += event.results[i][0].transcript;
-            }
-            
-            // Convert to lowercase to make it easier to match
-            let spokenWords = transcript.toLowerCase();
-            console.log("User said: ", spokenWords);
-
-            // THE TETHER PHRASE: If they say "pax" or "safe", dismiss the hijack
-            if (spokenWords.includes("pax") || spokenWords.includes("safe") || spokenWords.includes("i'm safe")) {
-                console.log("Vocal Tether Confirmed. Dismissing Sanctuary.");
+            let transcript = Array.from(event.results).map(r => r[0].transcript).join('').toLowerCase();
+            if (transcript.includes("pax") || transcript.includes("safe")) {
+                console.log("Vocal Tether Confirmed.");
                 dismissHijack(); 
             }
         };
 
-        recognition.onerror = function(event) {
-            console.log("Vocal Tether Error: ", event.error);
+        // THE FIX: If the mic goes to sleep while sanctuary is active, wake it back up!
+        recognition.onend = function() {
+            if (isSanctuaryActive) {
+                try { recognition.start(); } catch(e) {}
+            }
         };
-    } else {
-        console.log("Speech Recognition not supported in this browser.");
     }
-}
 
-// 2. The Standard Hijack Logic
-window.onload = function() {
-    console.log("Observer active. Tap screen to authorize haptics and mic.");
-    initializeVocalTether(); // Prep the mic on load
-};
+    // Pull the Curtain
+    const intro = document.getElementById('intro-screen');
+    if (intro) intro.classList.remove('active');
+}
 
 function engageSanctuary() {
     const layer = document.getElementById('somatic-layer');
+    const audio = document.getElementById('sanctuary-audio');
+    
     if (layer && !layer.classList.contains('active')) {
+        isSanctuaryActive = true;
         layer.classList.add('active');
         startHeartbeat();
         
-        // Start listening when the sanctuary engages
-        if (recognition) {
-            try {
-                recognition.start();
-            } catch(e) {
-                console.log("Mic already active.");
-            }
-        }
+        if (audio) { audio.volume = 0.5; audio.play(); } // Fade in audio
+        if (recognition) { try { recognition.start(); } catch(e) {} } // Start listening
     }
 }
 
 function dismissHijack(event) {
     if (event) event.stopPropagation(); 
     const layer = document.getElementById('somatic-layer');
+    const audio = document.getElementById('sanctuary-audio');
+    
     if (layer) {
+        isSanctuaryActive = false;
         layer.classList.remove('active');
         stopHeartbeat();
         
-        // Stop listening when dismissed
-        if (recognition) {
-            recognition.stop();
-            console.log("PAX stopped listening.");
-        }
+        if (audio) { audio.pause(); audio.currentTime = 0; } // Stop audio
+        if (recognition) recognition.stop(); // Stop listening
     }
 }
 
@@ -84,9 +69,7 @@ function startHeartbeat() {
     if ("vibrate" in navigator) {
         clearInterval(heartbeatInterval);
         navigator.vibrate(100);
-        heartbeatInterval = setInterval(() => {
-            navigator.vibrate(150); 
-        }, 1000);
+        heartbeatInterval = setInterval(() => navigator.vibrate(150), 1000);
     }
 }
 
@@ -96,8 +79,5 @@ function stopHeartbeat() {
 }
 
 function triggerSomaticHijack() {
-    const layer = document.getElementById('somatic-layer');
-    if (layer && !layer.classList.contains('active')) {
-        engageSanctuary();
-    }
+    if (!isSanctuaryActive) engageSanctuary();
 }
