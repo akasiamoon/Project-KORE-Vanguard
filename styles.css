@@ -1,58 +1,61 @@
-/* --- THE FOUNDATION: PAX & THE WAYSHRINE --- */
-.wayshrine-container {
-    position: fixed; 
-    top: 0; 
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('pax.png'); /* Your masterpiece */
-    background-size: cover; /* Fills the screen, no black bars */
-    background-position: center center; /* Locks her in the middle for mobile */
-    background-repeat: no-repeat;
-    cursor: pointer;
-    z-index: 1; /* Sits at the back */
+/* --- 1. GENERAL RESET --- */
+body, html { 
+    margin: 0; padding: 0; background-color: #050508; overflow: hidden; 
+    font-family: 'Georgia', serif; 
 }
 
-/* --- THE HIJACK: AMBER BREATHING OVERLAY --- */
+/* --- 2. THE THRESHOLD SCREEN (Homepage) --- */
+.intro-layer {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at center, #1a1a24 0%, #050508 100%);
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+    transition: opacity 1.5s ease-in-out, visibility 1.5s;
+}
+.intro-layer.active { opacity: 1; visibility: visible; }
+.intro-content { text-align: center; color: #e5b376; }
+.kore-title { font-size: 3rem; letter-spacing: 0.5rem; text-shadow: 0 0 20px rgba(229, 179, 118, 0.4); margin-bottom: 0.2rem; }
+.kore-subtitle { font-size: 1rem; letter-spacing: 0.3rem; margin-bottom: 3rem; opacity: 0.6; }
+.init-btn { 
+    padding: 15px 40px; font-size: 1.2rem; background: rgba(0,0,0,0.5); 
+    color: #e5b376; border: 1px solid #e5b376; border-radius: 3px; 
+    cursor: pointer; transition: all 0.4s ease; letter-spacing: 2px;
+}
+.init-btn:hover { background: rgba(229, 179, 118, 0.15); box-shadow: 0 0 20px rgba(229, 179, 118, 0.3); }
+
+/* --- 3. THE FOUNDATION: PAX & THE WAYSHRINE --- */
+.wayshrine-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: url('pax.jpg'); /* Make sure your image is named this! */
+    background-size: cover; 
+    background-position: center center; 
+    background-repeat: no-repeat;
+    cursor: pointer; z-index: 1;
+}
+
+/* --- 4. THE HIJACK: LIGHTER AMBER BREATHING --- */
 .somatic-filter {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* Deep 2300K Amber, starting completely invisible */
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: rgba(229, 149, 0, 0); 
-    z-index: 10; /* Sits ON TOP of PAX */
-    pointer-events: none; /* Lets you click through to the desk */
+    z-index: 10; pointer-events: none;
     transition: background-color 1.5s ease-in-out;
 }
 
 .somatic-filter.active {
-    /* The room instantly dims and washes in heavy amber */
-    background-color: rgba(200, 100, 0, 0.7); 
-    pointer-events: auto; /* Traps your clicks while active */
+    /* Set to 0.3 opacity so PAX remains perfectly visible beneath it */
+    background-color: rgba(229, 149, 0, 0.3); 
+    pointer-events: auto;
     animation: somaticBreathe 4s infinite alternate ease-in-out;
 }
 
-/* The 4-Second Nervous System Down-Regulation Loop */
+/* The pulse dips low and high so the breathing is obvious */
 @keyframes somaticBreathe {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; }
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
 }
 
-/* The Dismiss Button (Top Right) */
+/* --- 5. THE DISMISS BUTTON --- */
 .exit-trigger {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: Arial, sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
+    position: absolute; top: 30px; right: 30px;
+    color: rgba(255, 255, 255, 0.5); font-size: 1rem; cursor: pointer; letter-spacing: 2px; transition: color 0.3s ease;
 }
-
-.exit-trigger:hover {
-    color: rgba(255, 255, 255, 1);
-}
+.exit-trigger:hover { color: rgba(255, 255, 255, 1); }
