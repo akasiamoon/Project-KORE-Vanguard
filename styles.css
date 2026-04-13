@@ -25,7 +25,7 @@ body, html {
 /* --- 3. THE FOUNDATION: PAX & THE WAYSHRINE --- */
 .wayshrine-container {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: url('pax.jpg'); /* Make sure your image is named this! */
+    background-image: url('pax.png'); /* Make sure your image is named this! */
     background-size: cover; 
     background-position: center center; 
     background-repeat: no-repeat;
