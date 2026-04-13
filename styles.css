@@ -1,21 +1,11 @@
 /* --- GENERAL RESET --- */
 body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden; font-family: 'Georgia', serif; }
 
-/* --- THE HEARTH & BREATHING (Watermark Override) --- */
+/* --- THE HEARTH & BREATHING --- */
 .hearth-container {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100vw; 
-    height: 100vh;
-    background-image: url('pax.png'); 
-    background-size: cover; 
-    background-position: center center; 
-    background-repeat: no-repeat;
-    cursor: pointer; 
-    z-index: 1;
-    /* Scales past the edge to hide AI watermarks */
-    transform: scale(1.05); 
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: url('pax.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;
+    cursor: pointer; z-index: 1; transform: scale(1.05); 
 }
 .hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
 @keyframes imageBreathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.075); } }
@@ -78,38 +68,23 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .the-hook p { font-size: 0.85rem; color: #ccc; line-height: 1.5; margin: 5px 0; }
 .the-hook strong { color: #ff4d4d; }
 
-/* --- KORE PORTAL OVERLAYS (LUXURY GLASSMORPHISM) --- */
+/* --- KORE PORTAL OVERLAYS (LUXURY TYPOGRAPHY) --- */
 .fullscreen-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: rgba(5, 5, 8, 0.4); backdrop-filter: blur(25px) brightness(0.6); -webkit-backdrop-filter: blur(25px) brightness(0.6);
     z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 1.5s ease-in-out, backdrop-filter 1.5s ease-in-out;
 }
-.hidden { 
-    opacity: 0 !important; 
-    visibility: hidden !important;
-    pointer-events: none !important; /* This shatters the invisible shield */
-}
+.hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 .brand-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-/* THE DIAMOND ASSASSIN */
-/* THE SEAMLESS LUXURY LOGO */
-.kore-seal {
-    width: 180px; 
-    height: 180px; /* THIS prevents the fisheye stretching */
-    object-fit: cover; /* Ensures the image fills the circle perfectly */
-    border-radius: 50%; /* Makes it a perfect circle */
-    background-color: #050505; /* Solid dark core to prevent see-through */
-    border: 2px solid rgba(212, 175, 55, 0.3); /* A subtle vintage gold rim */
-    box-shadow: 0px 0px 30px rgba(229, 179, 118, 0.15); /* Soft glowing aura */
-    margin-bottom: 20px;
-}
-.kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 3rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 25px rgba(229, 179, 118, 0.6); }
-.kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; opacity: 0.9; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
+/* THE MASSIVE TITLE */
+.kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 5rem; letter-spacing: 15px; margin: 0 0 10px 0; text-shadow: 0 0 35px rgba(229, 179, 118, 0.6); }
+.kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 50px; opacity: 0.9; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
 
 /* LUXURY BUTTONS */
 .sanctuary-btn {
     background: rgba(20, 20, 20, 0.3); border: 1px solid rgba(212, 175, 55, 0.5); color: #D4AF37;
-    padding: 12px 30px; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 4px;
+    padding: 15px 40px; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border-radius: 4px;
     backdrop-filter: blur(5px); transition: all 0.4s ease; animation: buttonBreathe 3s infinite alternate ease-in-out;
 }
 .sanctuary-btn:hover { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 1); color: #E8DCC4; box-shadow: 0px 0px 25px rgba(212, 175, 55, 0.6); animation: none; }
