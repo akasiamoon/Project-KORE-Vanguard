@@ -7,27 +7,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="intro-screen" class="fullscreen-overlay">
-    <div class="brand-container">
-        <img src="kore-logo.png" alt="KORE Logo" class="kore-seal">
-        <h1 class="kore-title">KORE</h1>
-        <p class="kore-tagline">The Somatic Multiverse</p>
-        <button id="enter-btn" class="sanctuary-btn">Enter Sanctuary</button>
-    </div>
-</div>
 
-<div id="exit-screen" class="fullscreen-overlay hidden">
-    <div class="brand-container">
-        <img src="kore-logo.png" alt="KORE Logo" class="kore-seal">
-        <p class="kore-tagline" style="margin-top: 20px;">The Sovereignty Begins Now.</p>
+    <div id="intro-screen" class="fullscreen-overlay">
+        <div class="brand-container">
+            <img src="kore-logo.png" alt="KORE Logo" class="kore-seal">
+            <h1 class="kore-title">KORE</h1>
+            <p class="kore-tagline">The Somatic Multiverse</p>
+            <button id="enter-btn" class="sanctuary-btn">Enter Sanctuary</button>
+        </div>
     </div>
-</div>
-    
+
+    <div id="exit-screen" class="fullscreen-overlay hidden">
+        <div class="brand-container">
+            <img src="kore-logo.png" alt="KORE Logo" class="kore-seal">
+            <p class="kore-tagline" style="margin-top: 20px;">The Sovereignty Begins Now.</p>
+        </div>
+    </div>
 
     <div class="hearth-container" onclick="triggerSomaticHijack()">
-        
         <div id="lore-shard" class="glowing-shard" onclick="triggerLore(event)"></div>
-
     </div>
 
     <div id="somatic-layer" class="somatic-filter">
@@ -56,30 +54,18 @@
                 <p><strong>NOTICE:</strong> Web Engine sessions are ephemeral.</p>
                 <p>To save progress and unlock persistent biometrics, the Native Client is required.</p>
             </div>
-            <button class="init-btn" onclick="closeSummary()">RETURN TO THE HEARTH</button>
+            <button class="sanctuary-btn" onclick="closeSummary()">RETURN TO THE HEARTH</button>
         </div>
     </div>
 
     <audio id="sanctuary-audio" loop>
         <source src="fire.mp3" type="audio/mpeg">
     </audio>
-<button id="tour-btn" onclick="triggerInvestorTour()" style="
-    position: fixed; 
-    bottom: 20px; 
-    right: 20px; 
-    z-index: 9999; 
-    background: rgba(255, 165, 0, 0.1); 
-    color: #ffca28; 
-    border: 1px solid #ffca28; 
-    padding: 8px 15px; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    font-family: monospace; 
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;">
-    Execute Tour
-</button>
+
+    <button id="tour-btn" class="tour-btn-glass" onclick="triggerInvestorTour()">
+        Execute Tour
+    </button>
+
     <script src="scripts.js"></script>
 </body>
 </html>
