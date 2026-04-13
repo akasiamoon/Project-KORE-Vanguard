@@ -94,3 +94,69 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .the-hook { background: rgba(0, 0, 0, 0.3); padding: 15px; margin: 25px 0; border-radius: 4px; border-left: 3px solid #ff4d4d; }
 .the-hook p { font-size: 0.85rem; color: #ccc; line-height: 1.5; margin: 5px 0; }
 .the-hook strong { color: #ff4d4d; }
+/* --- KORE PORTAL OVERLAYS --- */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #050505; /* Deep, almost black */
+    z-index: 9999; /* Keeps it on top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s ease-in-out; /* Smooth fade effect */
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none; /* Stops it from being clickable when hidden */
+}
+
+.brand-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kore-seal {
+    width: 180px; /* Adjust size as needed */
+    margin-bottom: 20px;
+}
+
+.kore-title {
+    font-family: 'Times New Roman', serif; /* Classic, grounded serif */
+    color: #E8DCC4; /* Alabaster white/gold */
+    font-size: 3rem;
+    letter-spacing: 8px;
+    margin: 0;
+}
+
+.kore-tagline {
+    font-family: Arial, sans-serif; /* Clean, technical contrast */
+    color: #D4AF37; /* Vintage gold */
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.sanctuary-btn {
+    background: transparent;
+    border: 1px solid #D4AF37;
+    color: #D4AF37;
+    padding: 12px 30px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sanctuary-btn:hover {
+    background: #D4AF37;
+    color: #050505;
+    box-shadow: 0px 0px 15px rgba(212, 175, 55, 0.4);
+}
