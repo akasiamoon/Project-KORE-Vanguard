@@ -23,37 +23,26 @@
     <div id="somatic-layer" class="somatic-filter">
         <div class="exit-trigger" onclick="dismissHijack(event)">✕ LEAVE PARTY</div>
         
-        <div id="party-hud" class="hud-container">
+        <div id="party-hud" class="glass-ui party-roster">
             <div class="hud-header">PULSE-GUILD [ACTIVE]</div>
-            <div class="party-member">
-                <div class="member-name">AMBER [ARCHITECT] <span class="host-icon">♔</span></div>
-                <div class="member-status">HEARTH: <span id="my-flame" class="alert">LOW EMBER</span></div>
-            </div>
-            <div class="party-member" style="margin-top: 15px;">
-                <div class="member-name">CORY [VISITING]</div>
-                <div class="member-status">STATUS: <span class="calm">AEGIS ACTIVE</span></div>
-            </div>
+            <div class="member"><span class="gold">AMBER [ARCHITECT]</span> <span class="status-alert">LOW EMBER</span></div>
+            <div class="member">CORY [VISITING] <span class="status-calm">AEGIS ACTIVE</span></div>
         </div>
 
-        <div id="quest-tracker" class="quest-container">
-            <div class="quest-title">VANGUARD MISSION</div>
-            <div class="quest-name">THE GREY FOG</div>
-            <div class="quest-objective">- Cast Aegis (Deep Breathing)</div>
-            <div class="quest-reward">REWARD: +1 SIGNATURE LIGHT</div>
+        <div id="quest-tracker" class="glass-ui quest-tracker">
+            <div class="hud-header">VANGUARD MISSION</div>
+            <div class="quest-item">THE GREY FOG</div>
+            <div class="quest-sub">Cast Aegis (Deep Breathing)</div>
         </div>
     </div>
 
     <div id="lore-banner" class="lore-notification">
-        <span class="lore-icon">✦</span> FRAGMENT DECRYPTED: THE SOVEREIGN VOW
+        <span class="gold">✦</span> FRAGMENT DECRYPTED: THE SOVEREIGN VOW
     </div>
 
-    <audio id="sanctuary-audio" loop>
-        <source src="fire.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="sanctuary-audio" loop><source src="fire.mp3" type="audio/mpeg"></audio>
 
-    <button id="manifesto-btn" class="tour-btn-glass" onclick="triggerInvestorTour()">
-        THE MANIFESTO
-    </button>
+    <button class="manifesto-trigger" onclick="triggerInvestorTour()">THE MANIFESTO</button>
 
     <script src="scripts.js"></script>
 </body>
