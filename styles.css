@@ -42,15 +42,38 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .exit-trigger { position: absolute; top: 30px; right: 30px; color: rgba(255, 255, 255, 0.5); font-size: 1rem; cursor: pointer; letter-spacing: 2px; transition: color 0.3s ease; }
 .exit-trigger:hover { color: rgba(255, 255, 255, 1); }
 
+/* --- THE MMO INTERFACE (Party & Quests) --- */
 .hud-container {
-    position: absolute; top: 25px; left: 20px; font-family: 'Courier New', Courier, monospace;
-    color: rgba(229, 179, 118, 0.5); background: transparent; padding: 0; opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
+    position: absolute; top: 25px; left: 20px; 
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(10, 10, 12, 0.85); 
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 4px; padding: 15px; 
+    opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
 }
 .somatic-filter.active .hud-container { opacity: 1; }
-.hud-line { font-size: 0.7rem; margin-bottom: 3px; letter-spacing: 2px; text-transform: uppercase; }
-.hud-line span.alert { color: rgba(255, 77, 77, 0.8); text-shadow: 0 0 5px rgba(255, 77, 77, 0.3); }
-.hud-line span.calm { color: rgba(77, 255, 136, 0.8); text-shadow: 0 0 5px rgba(77, 255, 136, 0.3); }
 
+.hud-header { color: #D4AF37; font-size: 0.8rem; letter-spacing: 2px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 5px; margin-bottom: 10px; }
+.party-member { font-size: 0.75rem; letter-spacing: 1px; }
+.member-name { color: #E8DCC4; margin-bottom: 3px; }
+.host-icon { color: #D4AF37; font-size: 0.9rem; }
+.member-status { color: #888; }
+.member-status span.alert { color: #ff4d4d; text-shadow: 0 0 5px rgba(255, 77, 77, 0.3); }
+.member-status span.calm { color: #4dff88; text-shadow: 0 0 5px rgba(77, 255, 136, 0.3); }
+
+.quest-container {
+    position: absolute; top: 25px; right: 20px; 
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(10, 10, 12, 0.8); border-left: 2px solid #D4AF37;
+    padding: 10px 15px; opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
+    text-align: right;
+}
+.somatic-filter.active .quest-container { opacity: 1; }
+.quest-title { color: #888; font-size: 0.65rem; letter-spacing: 2px; }
+.quest-name { color: #E8DCC4; font-size: 0.9rem; font-weight: bold; margin: 3px 0; }
+.quest-objective { color: #ccc; font-size: 0.75rem; margin-bottom: 5px; }
+.quest-reward { color: #D4AF37; font-size: 0.75rem; }
 /* --- SESSION SUMMARY --- */
 .summary-layer {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
