@@ -10,7 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
 let heartbeatInterval;
 let recognition; 
 let isSanctuaryActive = false;
-let synth = window.speechSynthesis; // THE NEW VOCAL ENGINE
+
+// --- THE VOICE ENGINE UPGRADE ---
+let synth = window.speechSynthesis; 
+let paxVoice = null;
+
+// Browsers load voices on a delay, so we have to actively hunt for them
+function loadPremiumVoices() {
+    let availableVoices = synth.getVoices();
+    if (availableVoices.length === 0) return;
+
+    // We hunt for the highest quality native voices in order of preference
+    paxVoice = availableVoices.find(v => v.name.includes("Google UK English Female")) || // Android/Chrome Premium
+               availableVoices.find(v => v.name.includes("Samantha")) || // iOS/Mac Premium
+               availableVoices.find(v => v.name.includes("Moira")) || // Irish (Very calming)
+               availableVoices.find(v => v.name.includes("Microsoft Hazel")) || // Windows UK
+               availableVoices.find(v => v.name.includes("Fiona")) || // Mac Scottish
+               availableVoices.find(v => v.lang === 'en-GB') || // Any British voice
+               availableVoices[0]; // Fallback if device has terrible options
+
+    console.log("🗣️ PAX Voice Selected: " + paxVoice.name);
+}
+
+// Fire the hunt immediately, and also listen for when the browser finishes loading them
+loadPremiumVoices();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadPremiumVoices;
+}
 
 // --- THE VOICE OF PAX ---
 function paxSpeak(text, callback) {
@@ -21,16 +47,20 @@ function paxSpeak(text, callback) {
     
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // We slow her down and drop the pitch to make her sound calming, ethereal, and safe
+    // Attach the premium voice we hunted down
+    if (paxVoice) {
+        utterance.voice = paxVoice;
+    }
+    
+    // Smooth the delivery
     utterance.rate = 0.85; 
     utterance.pitch = 0.9; 
     
-    // Duck the background audio so PAX can be heard
+    // Duck the background audio
     const audio = document.getElementById('sanctuary-audio');
     if (audio) audio.volume = 0.1; 
 
     utterance.onend = function (event) {
-        // Bring the rain audio back up when she finishes speaking
         if (audio && isSanctuaryActive) audio.volume = 0.5;
         if (callback) callback();
     }
