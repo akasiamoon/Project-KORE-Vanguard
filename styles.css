@@ -88,10 +88,15 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .brand-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 /* THE DIAMOND ASSASSIN */
+/* THE SEAMLESS LOGO */
 .kore-seal {
-    width: 180px; margin-bottom: 20px;
-    clip-path: circle(45% at 50% 50%); 
-    filter: drop-shadow(0px 0px 15px rgba(229, 179, 118, 0.3)); 
+    width: 180px; 
+    margin-bottom: 20px;
+    background-color: #000000; /* Absorbs the image background */
+    border-radius: 50%; /* Perfect circle */
+    object-fit: cover;
+    box-shadow: 0px 0px 25px rgba(229, 179, 118, 0.15); /* Soft outer glow */
+    clip-path: circle(47% at 50% 50%); /* Trims the final 3% to hide any corner pixels */
 }
 .kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 3rem; letter-spacing: 8px; margin: 0; text-shadow: 0 0 25px rgba(229, 179, 118, 0.6); }
 .kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; opacity: 0.9; text-shadow: 0 0 10px rgba(212, 175, 55, 0.4); }
