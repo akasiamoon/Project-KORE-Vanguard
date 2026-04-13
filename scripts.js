@@ -59,6 +59,33 @@ function paxSpeak(text, isExit = false) {
     };
 
     synth.speak(utterance);
+}// --- THE LORE DISCOVERY ENGINE ---
+function triggerLore(event) {
+    // 1. Stop the click from accidentally triggering the panic hijack
+    event.stopPropagation(); 
+    
+    const shard = document.getElementById('lore-shard');
+    const banner = document.getElementById('lore-banner');
+    const audio = document.getElementById('sanctuary-audio');
+
+    // 2. Hide the shard (They collected it!)
+    if (shard) {
+        shard.style.transform = "scale(3) rotate(45deg)";
+        shard.style.opacity = "0";
+        setTimeout(() => { shard.style.display = 'none'; }, 500);
+    }
+
+    // 3. Drop the notification banner
+    if (banner) {
+        banner.classList.add('active');
+        // Hide banner after 6 seconds
+        setTimeout(() => { banner.classList.remove('active'); }, 6000);
+    }
+
+    // 4. Duck the audio and have PAX tell the story
+    if (audio) { audio.volume = 0.5; audio.play().catch(e => {}); }
+    
+    paxSpeak("You found a fragment of the Old Road. Before the noise consumed the world, the Architects built these Wayshrines as lighthouses for the mind. As long as this fire burns, the dark cannot claim you.", false);
 }
 
 function initializeEngine() {
