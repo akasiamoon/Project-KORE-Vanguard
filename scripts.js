@@ -82,36 +82,55 @@ function initializeEngine() {
         
         recognition.onstart = function() { console.log("🎙️ PAX IS LISTENING..."); };
 
-        recognition.onresult = function(event) {
+      recognition.onresult = function(event) {
             let transcript = Array.from(event.results).map(r => r[0].transcript).join('').toLowerCase();
             console.log("🧠 Mic heard: ", transcript); 
             
             const vocalDisplay = document.getElementById('hud-vocal');
 
-            // --- THE AI INTENT ROUTER ---
+            // 1. THE DISENGAGE TETHER (The Killswitch)
             if (transcript.includes("pax") || transcript.includes("safe") || transcript.includes("stop") || transcript.includes("good") || transcript.includes("okay")) {
                 if (vocalDisplay) vocalDisplay.innerHTML = "<span class='calm'>TETHER CONFIRMED.</span>";
-                
-                // 1. Immediately trigger the UI shutdown
                 dismissHijack(); 
-                
-                // 2. Tell her to speak her final line (true = this is an exit, do not wake mic)
-                paxSpeak("Tether confirmed. I am with you.", true); 
+                paxSpeak("Tether confirmed. I am with you. Logging your recovery.", true); 
             } 
-            else if (transcript.includes("stress") || transcript.includes("panic") || transcript.includes("bad") || transcript.includes("help") || transcript.includes("scared")) {
-                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='alert'>DISTRESS DETECTED.</span>";
-                paxSpeak("I hear you. You are not alone. Breathe with my light.");
+            
+            // 2. SEVERE PHYSICAL DISTRESS (Panic Attack Symptoms)
+            else if (transcript.includes("can't breathe") || transcript.includes("heart") || transcript.includes("dying") || transcript.includes("chest")) {
+                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='alert'>SOMATIC OVERLOAD DETECTED.</span>";
+                paxSpeak("Your body is sounding an alarm, but you are not in danger. Match your breathing to my light. Inhale. Exhale.");
             }
-            else if (transcript.includes("who are you") || transcript.includes("what are you")) {
-                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='calm'>IDENTITY QUERY.</span>";
-                paxSpeak("I am PAX. Your cognitive sanctuary.");
+            
+            // 3. EMOTIONAL FLOODING & VALIDATION
+            else if (transcript.includes("crazy") || transcript.includes("too much") || transcript.includes("overwhelmed") || transcript.includes("scared")) {
+                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='alert'>EMOTIONAL FLOODING DETECTED.</span>";
+                paxSpeak("You are not broken. This is just a wave, and waves pass. I will hold the light until it does.");
             }
+
+            // 4. THE GROUNDING TECHNIQUE (Clinical distraction)
+            else if (transcript.includes("help") || transcript.includes("ground me") || transcript.includes("distract")) {
+                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='calm'>INITIATING GROUNDING PROTOCOL.</span>";
+                paxSpeak("Look around the room. Tell me the name of one physical object you can see right now.");
+            }
+
+            // 5. WORLD-BUILDING & LORE (The Gamer Hook)
+            else if (transcript.includes("where are we") || transcript.includes("what is this") || transcript.includes("wayshrine")) {
+                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='calm'>ENVIRONMENT QUERY.</span>";
+                paxSpeak("This is the Wayshrine. A quiet place between the noise. Nothing can reach you here.");
+            }
+
+            // 6. THE ARCHITECT EASTER EGG (Pitch Meeting Flex)
+            else if (transcript.includes("vanguard") || transcript.includes("kore")) {
+                if (vocalDisplay) vocalDisplay.innerHTML = "<span class='calm'>ADMIN RECOGNIZED.</span>";
+                paxSpeak("Project Kore Vanguard Engine operating at optimal capacity. Awaiting your command, Architect.");
+            }
+
+            // 7. DEFAULT FALLBACK
             else {
                 if (vocalDisplay) vocalDisplay.innerHTML = "<span class='alert'>ANALYZING...</span>";
                 paxSpeak("I am listening. Keep breathing.");
             }
         };
-
         recognition.onerror = function(event) { console.error("❌ MIC ERROR: ", event.error); };
         
         recognition.onend = function() {
