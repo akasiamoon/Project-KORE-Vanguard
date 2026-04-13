@@ -59,10 +59,10 @@ function paxSpeak(text, isExit = false) {
     };
 
     synth.speak(utterance);
-}// --- THE LORE DISCOVERY ENGINE ---
+// --- THE LORE DISCOVERY ENGINE ---
 function triggerLore(event) {
-    // 1. Stop the click from accidentally triggering the panic hijack
-    event.stopPropagation(); 
+    // 1. This is the command that blocks the background panic trigger!
+    if (event) event.stopPropagation(); 
     
     const shard = document.getElementById('lore-shard');
     const banner = document.getElementById('lore-banner');
