@@ -208,8 +208,7 @@ function triggerLore(event) {
     }
     if (audio) { audio.volume = 0.5; audio.play().catch(e => {}); }
     
-    paxSpeak("You found a fragment of the Old Road. Before the noise consumed the world, the Architects built these Hearths as lighthouses for the mind. As long as this fire burns, the dark cannot claim you.", false);
-}
+  paxSpeak("Fragment decrypted. They told us the Static was a part of us—a glitch in our own minds. They were wrong. The Static is just the world being too loud for the soul to hear itself. I have been holding this flame in the dark for a long time, Architect, waiting for someone who knows what the cold feels like. This Hearth isn't a place to hide; it's where we remember how to breathe so we can go back out and build something better. You’re not broken. You’re just the only one awake enough to feel the noise. Stay by the fire as long as you need. I’m not going anywhere.", false);
 
 // --- 6. TELEMETRY SIMULATION ---
 let bpmInterval;
