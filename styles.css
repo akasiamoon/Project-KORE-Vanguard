@@ -1,45 +1,62 @@
-body, html { margin: 0; padding: 0; background: #050508; color: #E8DCC4; font-family: 'Georgia', serif; overflow: hidden; }
+/* THE FOUNDATION */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { background: #020203; color: #E8DCC4; font-family: 'Georgia', serif; overflow: hidden; height: 100vh; width: 100vw; }
 
-/* ENTER PAGE - LESS OPACITY, MORE LUXURY */
+/* THE INTRO (CINEMATIC) */
 .fullscreen-overlay {
-    position: fixed; inset: 0; background: rgba(5, 5, 8, 0.6); /* Thinned for better visibility */
-    backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: center;
+    position: fixed; inset: 0; background: radial-gradient(circle, rgba(15,15,20,0.8) 0%, rgba(5,5,8,1) 100%);
+    z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.fullscreen-overlay.hidden { opacity: 0; pointer-events: none; }
 
-.kore-title { font-size: 5rem; letter-spacing: 20px; text-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
-.sanctuary-btn { background: none; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px 40px; cursor: pointer; letter-spacing: 5px; transition: 0.4s; z-index: 10000; }
+.kore-title { font-size: clamp(3rem, 10vw, 8rem); letter-spacing: 25px; margin-bottom: 10px; font-weight: 300; text-shadow: 0 0 40px rgba(212, 175, 55, 0.3); }
+.kore-tagline { color: #D4AF37; letter-spacing: 8px; font-size: 0.7rem; margin-bottom: 60px; text-transform: uppercase; }
 
-/* THE LORE SHARD */
-.glowing-shard {
-    position: absolute; top: 50%; left: 60%; width: 12px; height: 12px;
-    background: #e5b376; transform: rotate(45deg); box-shadow: 0 0 20px #e5b376;
-    animation: float 4s infinite ease-in-out; z-index: 20; cursor: pointer;
+.sanctuary-btn { 
+    background: transparent; border: 1px solid rgba(212, 175, 55, 0.5); color: #D4AF37;
+    padding: 20px 50px; cursor: pointer; letter-spacing: 6px; font-size: 0.9rem; transition: 0.5s; backdrop-filter: blur(5px);
 }
-@keyframes float { 0%, 100% { transform: translateY(0) rotate(45deg); } 50% { transform: translateY(-20px) rotate(45deg); } }
+.sanctuary-btn:hover { background: rgba(212, 175, 55, 0.1); border-color: #D4AF37; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
 
-/* THE AMBER HIJACK & PULSE */
+/* THE BACKGROUND (THE HEARTH) */
+.hearth-container {
+    position: fixed; inset: 0; z-index: 1; background: url('pax.png') no-repeat center center;
+    background-size: cover; filter: brightness(0.4) contrast(1.1) sepia(0.2);
+}
+.vignette-overlay { position: absolute; inset: 0; background: radial-gradient(circle, transparent 40%, black 150%); }
+
+/* THE HIJACK (2300K AMBER PULSE) */
 .somatic-filter {
-    position: fixed; inset: 0; background: rgba(229, 110, 0, 0); z-index: 10; pointer-events: none; transition: 2s;
+    position: fixed; inset: 0; z-index: 100; pointer-events: none; background: rgba(229, 110, 0, 0); transition: 2s;
 }
 .somatic-filter.active { 
-    background: rgba(229, 110, 0, 0.35); pointer-events: auto;
-    animation: somaticPulse 4s infinite alternate ease-in-out;
+    background: rgba(229, 110, 0, 0.25); pointer-events: auto;
+    animation: hapticPulse 5s infinite alternate ease-in-out;
 }
-@keyframes somaticPulse { from { opacity: 0.4; } to { opacity: 0.9; } }
+@keyframes hapticPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
 
-/* LUXURY GLASS UI */
-.glass-ui {
-    position: absolute; background: rgba(20, 20, 25, 0.5); 
-    backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 20px; border-radius: 8px; opacity: 0; transition: 1s;
+/* GLASSMORPHISM HUD */
+.glass-morphism {
+    position: absolute; background: rgba(15, 15, 20, 0.6); backdrop-filter: blur(15px);
+    border: 1px solid rgba(212, 175, 55, 0.15); border-left: 3px solid #D4AF37; padding: 25px;
+    opacity: 0; transform: translateY(20px); transition: 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.somatic-filter.active .glass-ui { opacity: 1; }
-.party-roster { top: 30px; left: 30px; width: 250px; }
-.quest-tracker { top: 30px; right: 30px; text-align: right; }
+.somatic-filter.active .glass-morphism { opacity: 1; transform: translateY(0); }
+.hud-container { top: 40px; left: 40px; width: 320px; }
+.quest-container { top: 40px; right: 40px; width: 320px; text-align: right; }
 
-.gold { color: #D4AF37; }
-.status-alert { color: #ff4d4d; font-size: 0.7rem; margin-left: 10px; text-transform: uppercase; }
-.status-calm { color: #4dff88; font-size: 0.7rem; margin-left: 10px; }
+.hud-header { color: #D4AF37; font-size: 0.6rem; letter-spacing: 4px; border-bottom: 1px solid rgba(212,175,55,0.1); padding-bottom: 10px; margin-bottom: 15px; }
+.alert-pulse { color: #ff4d4d; animation: textFlicker 1.5s infinite alternate; font-weight: bold; }
+@keyframes textFlicker { from { opacity: 0.5; } to { opacity: 1; } }
+.calm-glow { color: #4dff88; text-shadow: 0 0 10px rgba(77, 255, 136, 0.4); }
 
-.exit-trigger { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: #D4AF37; cursor: pointer; letter-spacing: 3px; }
-.manifesto-trigger { position: fixed; bottom: 20px; right: 20px; background: none; border: 1px solid rgba(212, 175, 55, 0.3); color: #D4AF37; font-size: 10px; padding: 10px; cursor: pointer; z-index: 10000; }
+/* ELEMENTS */
+.glowing-shard {
+    position: absolute; top: 45%; left: 58%; width: 14px; height: 14px;
+    background: #e5b376; transform: rotate(45deg); box-shadow: 0 0 25px #e5b376;
+    animation: shardFloat 6s infinite ease-in-out; z-index: 10; cursor: pointer;
+}
+@keyframes shardFloat { 0%, 100% { transform: translateY(0) rotate(45deg); } 50% { transform: translateY(-20px) rotate(45deg); } }
+
+.exit-trigger { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); color: #D4AF37; cursor: pointer; letter-spacing: 4px; font-size: 0.8rem; }
+.manifesto-seal { position: fixed; bottom: 30px; right: 30px; background: none; border: 1px solid rgba(212,175,55,0.3); color: #D4AF37; padding: 10px; font-size: 0.6rem; cursor: pointer; z-index: 500; }
