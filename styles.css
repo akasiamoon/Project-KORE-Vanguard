@@ -1,123 +1,44 @@
-/* --- GENERAL RESET --- */
-body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden; font-family: 'Georgia', serif; }
+/* --- CORE --- */
+body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden; font-family: 'Georgia', serif; color: #E8DCC4; }
 
-/* --- THE HEARTH & BREATHING --- */
+/* --- THE HEARTH --- */
 .hearth-container {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-image: url('pax.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;
-    cursor: pointer; z-index: 1; transform: scale(1.05); 
+    background-image: url('pax.png'); background-size: cover; background-position: center;
+    z-index: 1; filter: brightness(0.6) sepia(0.3);
 }
-.hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
-@keyframes imageBreathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.075); } }
 
-/* --- LORE SHARD & BANNER --- */
-.glowing-shard {
-    position: absolute; top: 50%; left: calc(50% + 120px); 
-    width: 12px; height: 12px; background-color: #e5b376; transform: rotate(45deg);
-    box-shadow: 0 0 15px #e5b376, 0 0 30px #e5b376; cursor: pointer; z-index: 20; 
-    animation: floatShard 4s infinite ease-in-out; transition: all 0.5s ease;
-}
-.glowing-shard::before { content: ''; position: absolute; top: -25px; left: -25px; right: -25px; bottom: -25px; background: transparent; }
-.glowing-shard:hover { transform: rotate(45deg) scale(1.5); box-shadow: 0 0 25px #fff, 0 0 50px #e5b376; }
-@keyframes floatShard { 0%, 100% { transform: translateY(0) rotate(45deg); opacity: 0.7; } 50% { transform: translateY(-20px) rotate(45deg); opacity: 1; } }
-
-.lore-notification {
-    position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-    background: rgba(10, 10, 15, 0.85); border: 1px solid rgba(229, 179, 118, 0.5);
-    color: #ccc; font-family: 'Courier New', Courier, monospace; letter-spacing: 2px; font-size: 0.9rem;
-    padding: 15px 30px; border-radius: 4px; z-index: 9999; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: top 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-}
-.lore-notification.active { top: 40px; }
-.lore-icon { color: #e5b376; margin-right: 10px; font-size: 1.2rem; }
-
-/* --- SOMATIC HIJACK & HUD --- */
-.somatic-filter {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-color: rgba(229, 149, 0, 0); 
-    z-index: 10; pointer-events: none; transition: background-color 1.5s ease-in-out;
-}
-.somatic-filter.active { background-color: rgba(229, 149, 0, 0.3); pointer-events: auto; animation: somaticBreathe 4s infinite alternate ease-in-out; }
-@keyframes somaticBreathe { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
-.exit-trigger { position: absolute; top: 30px; right: 30px; color: rgba(255, 255, 255, 0.5); font-size: 1rem; cursor: pointer; letter-spacing: 2px; transition: color 0.3s ease; }
-.exit-trigger:hover { color: rgba(255, 255, 255, 1); }
-
-/* --- THE MMO INTERFACE (Party & Quests) --- */
-.hud-container {
-    position: absolute; top: 25px; left: 20px; 
-    font-family: 'Courier New', Courier, monospace;
-    background: rgba(10, 10, 12, 0.85); 
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 4px; padding: 15px; 
-    opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}
-.somatic-filter.active .hud-container { opacity: 1; }
-
-.hud-header { color: #D4AF37; font-size: 0.8rem; letter-spacing: 2px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 5px; margin-bottom: 10px; }
-.party-member { font-size: 0.75rem; letter-spacing: 1px; }
-.member-name { color: #E8DCC4; margin-bottom: 3px; }
-.host-icon { color: #D4AF37; font-size: 0.9rem; }
-.member-status { color: #888; }
-.member-status span.alert { color: #ff4d4d; text-shadow: 0 0 5px rgba(255, 77, 77, 0.3); }
-.member-status span.calm { color: #4dff88; text-shadow: 0 0 5px rgba(77, 255, 136, 0.3); }
-
-.quest-container {
-    position: absolute; top: 25px; right: 20px; 
-    font-family: 'Courier New', Courier, monospace;
-    background: rgba(10, 10, 12, 0.8); border-left: 2px solid #D4AF37;
-    padding: 10px 15px; opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
-    text-align: right;
-}
-.somatic-filter.active .quest-container { opacity: 1; }
-.quest-title { color: #888; font-size: 0.65rem; letter-spacing: 2px; }
-.quest-name { color: #E8DCC4; font-size: 0.9rem; font-weight: bold; margin: 3px 0; }
-.quest-objective { color: #ccc; font-size: 0.75rem; margin-bottom: 5px; }
-.quest-reward { color: #D4AF37; font-size: 0.75rem; }
-/* --- SESSION SUMMARY --- */
-.summary-layer {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-color: rgba(5, 5, 8, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    z-index: 10000; display: flex; justify-content: center; align-items: center;
-    opacity: 0; visibility: hidden; transition: all 1s ease;
-}
-.summary-layer.active { opacity: 1; visibility: visible; }
-.summary-content { background: rgba(20, 20, 25, 0.7); border: 1px solid rgba(229, 179, 118, 0.3); padding: 40px; border-radius: 8px; text-align: center; max-width: 400px; width: 80%; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-.summary-title { color: #e5b376; letter-spacing: 4px; font-size: 1.5rem; border-bottom: 1px solid rgba(229, 179, 118, 0.2); padding-bottom: 15px; margin-bottom: 20px; }
-.summary-stats p { color: #aaa; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; margin: 10px 0; letter-spacing: 1px; }
-.highlight-green { color: #4dff88; text-shadow: 0 0 8px rgba(77, 255, 136, 0.4); }
-.highlight-gold { color: #e5b376; text-shadow: 0 0 8px rgba(229, 179, 118, 0.4); font-weight: bold; }
-.the-hook { background: rgba(0, 0, 0, 0.3); padding: 15px; margin: 25px 0; border-radius: 4px; border-left: 3px solid #ff4d4d; }
-.the-hook p { font-size: 0.85rem; color: #ccc; line-height: 1.5; margin: 5px 0; }
-.the-hook strong { color: #ff4d4d; }
-
-/* --- KORE PORTAL OVERLAYS (LUXURY TYPOGRAPHY) --- */
+/* --- UI OVERLAYS --- */
 .fullscreen-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-color: rgba(5, 5, 8, 0.4); backdrop-filter: blur(25px) brightness(0.6); -webkit-backdrop-filter: blur(25px) brightness(0.6);
-    z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 1.5s ease-in-out, backdrop-filter 1.5s ease-in-out;
+    background: rgba(5, 5, 8, 0.95); z-index: 100; /* High Z-index for button priority */
+    display: flex; justify-content: center; align-items: center; text-align: center;
+    transition: opacity 1.5s ease;
 }
+
 .hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-.brand-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-/* THE MASSIVE TITLE */
-.kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 5rem; letter-spacing: 15px; margin: 0 0 10px 0; text-shadow: 0 0 35px rgba(229, 179, 118, 0.6); }
-.kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 50px; opacity: 0.9; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-
-/* LUXURY BUTTONS */
-.sanctuary-btn {
-    background: rgba(20, 20, 20, 0.3); border: 1px solid rgba(212, 175, 55, 0.5); color: #D4AF37;
-    padding: 15px 40px; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border-radius: 4px;
-    backdrop-filter: blur(5px); transition: all 0.4s ease; animation: buttonBreathe 3s infinite alternate ease-in-out;
+/* --- HUD & QUESTS --- */
+.somatic-filter {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(229, 110, 0, 0); z-index: 10; pointer-events: none;
+    transition: background-color 2s ease;
 }
-.sanctuary-btn:hover { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 1); color: #E8DCC4; box-shadow: 0px 0px 25px rgba(212, 175, 55, 0.6); animation: none; }
-@keyframes buttonBreathe { 0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); } 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); } }
+.somatic-filter.active { background-color: rgba(229, 110, 0, 0.3); pointer-events: auto; }
 
-/* THE LUXURY TOUR BUTTON */
-.tour-btn-glass {
-    position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
-    background: rgba(20, 20, 20, 0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.3); padding: 10px 20px; border-radius: 6px; 
-    cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.4s ease;
+.hud-container, .quest-container {
+    position: absolute; background: rgba(10, 10, 12, 0.9); border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 20px; border-radius: 4px; font-family: 'Courier New', monospace;
+    opacity: 0; transition: opacity 1s ease;
 }
-.tour-btn-glass:hover { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 1); color: #E8DCC4; box-shadow: 0px 0px 20px rgba(212, 175, 55, 0.4); }
+.hud-container { top: 20px; left: 20px; }
+.quest-container { top: 20px; right: 20px; text-align: right; }
+.somatic-filter.active .hud-container, .somatic-filter.active .quest-container { opacity: 1; }
+
+/* --- TYPOGRAPHY & BUTTONS --- */
+.kore-title { font-size: 4rem; letter-spacing: 15px; margin: 0; }
+.kore-tagline { font-size: 0.8rem; letter-spacing: 4px; color: #D4AF37; margin-bottom: 40px; }
+.sanctuary-btn { background: none; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px 30px; cursor: pointer; letter-spacing: 4px; transition: 0.3s; }
+.sanctuary-btn:hover { background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+.tour-btn-glass { position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: rgba(20,20,20,0.5); color: #D4AF37; border: 1px solid #D4AF37; padding: 10px; cursor: pointer; font-size: 10px; }
