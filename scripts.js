@@ -1,73 +1,57 @@
-let recognition;
-let isSanctuaryActive = false;
+let synth = window.speechSynthesis;
 
 document.addEventListener('DOMContentLoaded', () => {
     const enterBtn = document.getElementById('enter-btn');
-    enterBtn.addEventListener('click', () => {
+    enterBtn.onclick = () => {
         document.getElementById('intro-screen').classList.add('hidden');
         document.getElementById('sanctuary-audio').play();
-        initSpeech();
-    });
+        setTimeout(() => paxSpeak("Sanctuary stable. Welcome home, Architect."), 1000);
+    };
 });
 
-function initSpeech() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-        recognition = new SpeechRecognition();
-        recognition.continuous = true;
-        recognition.onresult = (event) => {
-            const text = event.results[event.results.length - 1][0].transcript.toLowerCase();
-            if (text.includes("pax") || text.includes("help")) triggerSomaticHijack();
-            if (text.includes("stop") || text.includes("safe")) dismissHijack();
-        };
-        try { recognition.start(); } catch(e) {}
-    }
-}
-
 function paxSpeak(text) {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
-    // Try to get a luxury UK voice
-    utterance.voice = voices.find(v => v.name.includes("Google UK English Female")) || voices[0];
-    utterance.rate = 0.85;
-    utterance.pitch = 0.9;
-    window.speechSynthesis.speak(utterance);
+    synth.cancel();
+    const msg = new SpeechSynthesisUtterance(text);
+    const voices = synth.getVoices();
+    // Prioritize high-quality neural voices
+    msg.voice = voices.find(v => v.name.includes("Google UK English Female") || v.name.includes("Premium")) || voices[0];
+    msg.rate = 0.85;
+    msg.pitch = 0.95;
+    synth.speak(msg);
 }
 
 function triggerSomaticHijack() {
-    if (isSanctuaryActive) return;
-    isSanctuaryActive = true;
     document.getElementById('somatic-layer').classList.add('active');
-    paxSpeak("Sanctuary protocol engaged. I am listening.");
+    paxSpeak("Sanctuary protocol engaged. Your heart is loud. Let's ground the signal.");
 }
 
 function dismissHijack(e) {
     if(e) e.stopPropagation();
-    isSanctuaryActive = false;
     document.getElementById('somatic-layer').classList.remove('active');
 }
 
 function triggerInvestorTour() {
-    paxSpeak("The recovery industry has spent 50 years perfecting the Maintenance of Sickness rather than the Architecture of Sovereignty. They use circle-of-chairs tactics to fight neurological warfare.");
+    paxSpeak("The recovery industry has spent 50 years perfecting the Maintenance of Sickness rather than the Architecture of Sovereignty.");
     setTimeout(() => {
-        paxSpeak("To look at this Hearth and say no is a public admission that you prefer the profit of a funeral over the intervention of mercy. We don't have a cure, but we have a sanctuary. Who is joining the Guild?");
+        paxSpeak("To look at this Hearth and say 'no' is a public admission that you prefer the profit of a funeral over the intervention of mercy. We don't have a cure, but we have a Sanctuary. Who is joining the Guild?");
     }, 12000);
 }
-
-// KEYBOARD SHORTCUTS
-document.addEventListener('keydown', (e) => {
-    if (e.key.toLowerCase() === 'h') triggerSomaticHijack();
-    if (e.key.toLowerCase() === 's') dismissHijack();
-    if (e.key.toLowerCase() === 'e') {
-        paxSpeak("The Sovereign Vow is sealed.");
-        setTimeout(() => location.reload(), 2000);
-    }
-});
 
 function triggerLore(e) {
     e.stopPropagation();
     document.getElementById('lore-banner').classList.add('active');
-    paxSpeak("I am the Architect because I survived the fiery pits. If we save one person from the abyss, this operation is a Profound Success.");
-    setTimeout(() => document.getElementById('lore-banner').classList.remove('active'), 5000);
+    paxSpeak("I am the Architect because I survived the fiery pits where these numbers become human faces. If we save one person from the abyss, this operation is a Profound Success.");
+    setTimeout(() => document.getElementById('lore-banner').classList.remove('active'), 8000);
 }
+
+// KEYBOARD SHORTCUTS
+document.onkeydown = (e) => {
+    const key = e.key.toLowerCase();
+    if (key === 'h') triggerSomaticHijack(); // H for Hijack
+    if (key === 's') dismissHijack();       // S for Safe/Stop
+    if (key === 'm') triggerInvestorTour(); // M for Manifesto
+    if (key === 'e') {                      // E for Exit/Reload
+        paxSpeak("The Vow is sealed.");
+        setTimeout(() => location.reload(), 2000);
+    }
+};
