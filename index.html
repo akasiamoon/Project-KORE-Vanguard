@@ -11,30 +11,63 @@
     <div id="intro-screen" class="fullscreen-overlay">
         <div class="brand-container">
             <h1 class="kore-title">KORE</h1>
-            <p class="kore-tagline">THE SOVEREIGN RECOVERY MULTIVERSE</p>
-            <button id="enter-btn" class="sanctuary-btn">ENTER SANCTUARY</button>
+            <p class="kore-tagline">The Somatic Multiverse</p>
+            <button id="enter-btn" class="sanctuary-btn">Enter Sanctuary</button>
+        </div>
+    </div>
+
+    <div id="exit-screen" class="fullscreen-overlay hidden">
+        <div class="brand-container">
+            <h1 class="kore-title">KORE</h1>
+            <p class="kore-tagline" style="margin-top: 20px;">The Sovereignty Begins Now.</p>
         </div>
     </div>
 
     <div class="hearth-container" onclick="triggerSomaticHijack()">
         <div id="lore-shard" class="glowing-shard" onclick="triggerLore(event)"></div>
-        <div class="vignette-overlay"></div>
     </div>
 
     <div id="somatic-layer" class="somatic-filter">
-        <div class="exit-trigger" onclick="dismissHijack(event)">✕ LEAVE PARTY</div>
+        <div class="exit-trigger" onclick="dismissHijack(event)">✕ Dismiss</div>
         
-        <div id="party-hud" class="hud-container glass-morphism">
-            <div class="hud-header">PULSE-GUILD [ACTIVE]</div>
-            <div class="party-member">
-                <div class="member-name">AMBER [ARCHITECT] <span class="host-icon">♔</span></div>
-                <div class="member-status">HEARTH: <span id="my-flame" class="alert-pulse">LOW EMBER</span></div>
-            </div>
-            <div class="party-member" style="margin-top: 15px;">
-                <div class="member-name">CORY [VISITING]</div>
-                <div class="member-status">STATUS: <span class="calm-glow">AEGIS ACTIVE</span></div>
-            </div>
+        <div id="telemetry-hud" class="hud-container">
+            <div class="hud-line">STATE: <span id="hud-status" class="alert">DETECTED</span></div>
+            <div class="hud-line">BPM: <span id="hud-bpm" class="alert">118</span></div>
+            <div class="hud-line">VOICE: <span id="hud-vocal" class="alert">LISTENING...</span></div>
         </div>
+    </div>
+
+    <div id="lore-banner" class="lore-notification">
+        <span class="lore-icon">✦</span> CODEX UNLOCKED: The Old Road
+    </div>
+
+    <div id="session-summary" class="summary-layer">
+        <div class="summary-content">
+            <h2 class="summary-title">TETHER ESTABLISHED</h2>
+            <div class="summary-stats">
+                <p>CORTISOL SPIKE: <span class="highlight-green">NEUTRALIZED</span></p>
+                <p>HEART RATE: <span class="highlight-green">118 ➔ 62 BPM</span></p>
+                <p>RESILIENCE GAINED: <span class="highlight-gold">+150 XP</span></p>
+            </div>
+            <div class="the-hook">
+                <p><strong>NOTICE:</strong> Web Engine sessions are ephemeral.</p>
+                <p>To save progress and unlock persistent biometrics, the Native Client is required.</p>
+            </div>
+            <button class="sanctuary-btn" onclick="closeSummary()">RETURN TO THE HEARTH</button>
+        </div>
+    </div>
+
+    <audio id="sanctuary-audio" loop>
+        <source src="fire.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="tour-btn" class="tour-btn-glass" onclick="triggerInvestorTour()">
+        Execute Tour
+    </button>
+
+    <script src="scripts.js"></script>
+</body>
+</html>        </div>
 
         <div id="quest-tracker" class="quest-container glass-morphism">
             <div class="hud-header">VANGUARD MISSION</div>
