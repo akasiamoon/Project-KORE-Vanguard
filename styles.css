@@ -1,52 +1,82 @@
 /* --- GENERAL RESET --- */
-body, html { 
-    margin: 0; padding: 0; 
-    background-color: #050508; 
-    overflow: hidden; 
-    font-family: 'Inter', sans-serif; 
-    user-select: none; 
+body, html {
+    margin: 0; padding: 0;
+    background-color: #050508;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    user-select: none;
 }
 
 .fullscreen-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     display: flex; justify-content: center; align-items: center;
-    background: #050508; transition: opacity 1s ease;
+    transition: opacity 1s ease;
 }
 
 .hidden { opacity: 0; pointer-events: none; }
 
+/* --- THE VAULT BACKGROUND (WHERE YOUR IMAGE GOES) --- */
+.vault-bg {
+    /* REPLACE 'your-background.png' WITH YOUR ACTUAL IMAGE FILENAME */
+    background-image: url('your-background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-color: #050508; /* Fallback color if image loads slow */
+}
+
+/* --- THE LUXURY UI --- */
+.brand-container {
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+    z-index: 10;
+}
+
 .kore-title {
-    color: #E8DCC4; font-weight: 300; letter-spacing: 6px; 
-    text-transform: uppercase; font-size: 1.2rem; cursor: pointer;
+    color: #E8DCC4; font-weight: 300; letter-spacing: 15px;
+    text-transform: uppercase; font-size: 2.5rem; margin: 0;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-.pulse-text { animation: textPulse 2s infinite alternate; }
-@keyframes textPulse { 
-    0% { opacity: 0.3; } 
-    100% { opacity: 1; text-shadow: 0 0 15px #D4AF37; } 
+.glass-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(232, 220, 196, 0.2);
+    backdrop-filter: blur(10px);
+    color: #E8DCC4;
+    padding: 15px 40px;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
-/* --- THE HEARTH CORE --- */
-.glowing-core {
+.glass-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* --- THE HIJACK ENVIRONMENT --- */
+#somatic-layer {
+    background: #050508; /* Strips away the image, plunges them into darkness */
+}
+
+.hearth-container {
     width: 20vmin; height: 20vmin;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(5,5,8,0) 70%);
-    opacity: 0; /* Invisible during the 3-second vacuum */
+    opacity: 0;
     transition: opacity 2s ease;
 }
 
-/* THE HIJACK ANIMATION */
-.somatic-active .glowing-core {
+/* THE AUTOMATED BREATHING ANIMATION */
+.breathing .hearth-container {
     opacity: 1;
     animation: somaticBreathe 3s infinite alternate ease-in-out;
 }
 
 @keyframes somaticBreathe {
-    0% { 
-        transform: scale(1);
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-    }
-    100% { 
+    0% { transform: scale(1); box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
+    100% {
         transform: scale(2.5);
         background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, rgba(5,5,8,0) 70%);
         box-shadow: 0 0 60px rgba(212, 175, 55, 0.3), inset 0 0 40px rgba(212, 175, 55, 0.2);
