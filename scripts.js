@@ -95,7 +95,53 @@ function engageSanctuary() {
         The blueprint is live, and this exact transmission is being seeded to a highly classified list of systemic disruptors. But the Architect is not building a crowded table. She is only looking for the lethal few. 
         Are you ready to claim your seat in the Guild... or should we pass the torch to the next target?`;
         
-        paxSpeak(genesisLedger);
+        paxSpeak(genesisLedger);function paxSpeak(text) {
+    if (synth.speaking) synth.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (paxVoice) utterance.voice = paxVoice;
+    utterance.rate = 0.85; 
+    utterance.pitch = 0.9; 
+    
+    const audio = document.getElementById('sanctuary-audio');
+    if (audio) audio.volume = 0.5;
+
+    // --- THE TRANSITION AT THE END ---
+    utterance.onend = function() {
+        clearInterval(heartbeatInterval);
+        if (audio) audio.volume = 0.15; // Fire drops to background levels
+        
+        // Bring in the Call to Action after a 2-second silent pause
+        setTimeout(revealGuildCovenant, 2000);
+    };
+
+    synth.speak(utterance);
+}
+
+function revealGuildCovenant() {
+    // We reuse your 'exit-screen' or create a clean overlay
+    const exitScreen = document.getElementById('exit-screen');
+    if (exitScreen) {
+        exitScreen.style.display = 'flex';
+        exitScreen.classList.remove('hidden');
+        
+        // Change the text to reflect the Guild choice
+        const tagline = exitScreen.querySelector('.kore-tagline');
+        if (tagline) {
+            tagline.innerHTML = `
+                <button class="sanctuary-btn" onclick="joinTheGuild()">CLAIM YOUR SEAT</button>
+                <p style="font-size: 0.7rem; margin-top: 20px; opacity: 0.5; letter-spacing: 2px;">
+                    OR REMAIN IN THE STATIC.
+                </p>
+            `;
+        }
+    }
+}
+
+function joinTheGuild() {
+    // This opens their email and prepares the reply to the Ghost
+    window.location.href = "mailto:architect@kore.foundation?subject=GUILD ADMITTANCE REQUEST&body=The Ledger has been decrypted. I am ready to discuss the blueprint.";
+}
+        
     }
 }
 
