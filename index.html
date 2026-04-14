@@ -8,16 +8,17 @@
 </head>
 <body>
 
-    <div id="intro-screen" class="fullscreen-overlay vault-bg">
+    <div id="intro-screen" class="fullscreen-overlay">
         <div class="brand-container">
             <h1 class="kore-title">KORE</h1>
-            <button id="enter-btn" class="glass-btn">ENTER SANCTUARY</button>
+            <p class="kore-tagline">The Somatic Multiverse</p>
+            <button id="enter-btn" class="sanctuary-btn">Enter Sanctuary</button>
         </div>
     </div>
 
-    <div id="somatic-layer" class="fullscreen-overlay hidden">
-        <div class="hearth-container"></div>
-    </div>
+    <div class="hearth-container"></div>
+
+    <div id="somatic-layer" class="somatic-filter"></div>
 
     <audio id="sanctuary-audio" loop>
         <source src="fire.mp3" type="audio/mpeg">
