@@ -24,35 +24,11 @@
     </div>
 
     <div class="hearth-container" onclick="triggerSomaticHijack()">
-        <div id="lore-shard" class="glowing-shard" onclick="triggerLore(event)"></div>
-    </div>
 
     <div id="somatic-layer" class="somatic-filter">
         <div class="exit-trigger" onclick="dismissHijack(event)">✕ Dismiss</div>
         
-        <div id="telemetry-hud" class="hud-container">
-            <div class="hud-line">STATE: <span id="hud-status" class="alert">DETECTED</span></div>
-            <div class="hud-line">BPM: <span id="hud-bpm" class="alert">118</span></div>
-            <div class="hud-line">VOICE: <span id="hud-vocal" class="alert">LISTENING...</span></div>
-        </div>
     </div>
-
-    <div id="lore-banner" class="lore-notification">
-        <span class="lore-icon">✦</span> CODEX UNLOCKED: The Old Road
-    </div>
-
-    <div id="session-summary" class="summary-layer">
-        <div class="summary-content">
-            <h2 class="summary-title">TETHER ESTABLISHED</h2>
-            <div class="summary-stats">
-                <p>CORTISOL SPIKE: <span class="highlight-green">NEUTRALIZED</span></p>
-                <p>HEART RATE: <span class="highlight-green">118 ➔ 62 BPM</span></p>
-                <p>RESILIENCE GAINED: <span class="highlight-gold">+150 XP</span></p>
-            </div>
-            <div class="the-hook">
-                <p><strong>NOTICE:</strong> Web Engine sessions are ephemeral.</p>
-                <p>To save progress and unlock persistent biometrics, the Native Client is required.</p>
-            </div>
             <button class="sanctuary-btn" onclick="closeSummary()">RETURN TO THE HEARTH</button>
         </div>
     </div>
@@ -61,31 +37,11 @@
         <source src="fire.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="tour-btn" class="tour-btn-glass" onclick="triggerInvestorTour()">
-        Execute Tour
-    </button>
-
     <script src="scripts.js"></script>
 </body>
 </html>        </div>
 
-        <div id="quest-tracker" class="quest-container glass-morphism">
-            <div class="hud-header">VANGUARD MISSION</div>
-            <div class="quest-name">THE GREY FOG</div>
-            <div class="quest-objective">- Cast Aegis (Somatic Regulation)</div>
-            <div class="quest-reward">REWARD: +1 SIGNATURE LIGHT</div>
-        </div>
-    </div>
-
-    <div id="lore-banner" class="lore-notification">
-        <span class="gold-text">✦</span> FRAGMENT DECRYPTED: THE SOVEREIGN VOW
-    </div>
-
     <audio id="sanctuary-audio" loop><source src="fire.mp3" type="audio/mpeg"></audio>
-
-    <button id="manifesto-btn" class="manifesto-seal" onclick="triggerInvestorTour()">
-        THE MANIFESTO
-    </button>
 
     <script src="scripts.js"></script>
 </body>
