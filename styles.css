@@ -1,84 +1,45 @@
 /* --- GENERAL RESET --- */
-body, html {
-    margin: 0; padding: 0;
-    background-color: #050508;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    user-select: none;
-}
+body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden; font-family: 'Georgia', serif; }
 
+/* --- THE HEARTH & BREATHING --- */
+.hearth-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: url('pax.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;
+    z-index: 1; transform: scale(1.05); 
+}
+.hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
+@keyframes imageBreathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.075); } }
+
+/* --- SOMATIC HIJACK OVERLAY --- */
+.somatic-filter {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(229, 149, 0, 0); 
+    z-index: 10; pointer-events: none; transition: background-color 1.5s ease-in-out;
+}
+.somatic-filter.active { 
+    background-color: rgba(229, 149, 0, 0.3); 
+    animation: somaticBreathe 4s infinite alternate ease-in-out; 
+}
+@keyframes somaticBreathe { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
+
+/* --- KORE PORTAL OVERLAYS (LUXURY TYPOGRAPHY) --- */
 .fullscreen-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    display: flex; justify-content: center; align-items: center;
-    transition: opacity 1s ease;
+    background-color: rgba(5, 5, 8, 0.4); backdrop-filter: blur(25px) brightness(0.6); -webkit-backdrop-filter: blur(25px) brightness(0.6);
+    z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 1.5s ease-in-out, backdrop-filter 1.5s ease-in-out;
 }
+.hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+.brand-container { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-.hidden { opacity: 0; pointer-events: none; }
+/* THE MASSIVE TITLE */
+.kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 5rem; letter-spacing: 15px; margin: 0 0 10px 0; text-shadow: 0 0 35px rgba(229, 179, 118, 0.6); }
+.kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 50px; opacity: 0.9; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
 
-/* --- THE VAULT BACKGROUND (WHERE YOUR IMAGE GOES) --- */
-.vault-bg {
-    /* REPLACE 'your-background.png' WITH YOUR ACTUAL IMAGE FILENAME */
-    background-image: url('your-background.png'); 
-    background-size: cover;
-    background-position: center;
-    background-color: #050508; /* Fallback color if image loads slow */
+/* LUXURY BUTTON */
+.sanctuary-btn {
+    background: rgba(20, 20, 20, 0.3); border: 1px solid rgba(212, 175, 55, 0.5); color: #D4AF37;
+    padding: 15px 40px; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border-radius: 4px;
+    backdrop-filter: blur(5px); transition: all 0.4s ease; animation: buttonBreathe 3s infinite alternate ease-in-out;
 }
-
-/* --- THE LUXURY UI --- */
-.brand-container {
-    display: flex; flex-direction: column; align-items: center; gap: 40px;
-    z-index: 10;
-}
-
-.kore-title {
-    color: #E8DCC4; font-weight: 300; letter-spacing: 15px;
-    text-transform: uppercase; font-size: 2.5rem; margin: 0;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-}
-
-.glass-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(232, 220, 196, 0.2);
-    backdrop-filter: blur(10px);
-    color: #E8DCC4;
-    padding: 15px 40px;
-    font-size: 0.9rem;
-    letter-spacing: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-}
-
-.glass-btn:hover {
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid rgba(212, 175, 55, 0.5);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-}
-
-/* --- THE HIJACK ENVIRONMENT --- */
-#somatic-layer {
-    background: #050508; /* Strips away the image, plunges them into darkness */
-}
-
-.hearth-container {
-    width: 20vmin; height: 20vmin;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(5,5,8,0) 70%);
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-/* THE AUTOMATED BREATHING ANIMATION */
-.breathing .hearth-container {
-    opacity: 1;
-    animation: somaticBreathe 3s infinite alternate ease-in-out;
-}
-
-@keyframes somaticBreathe {
-    0% { transform: scale(1); box-shadow: 0 0 30px rgba(212, 175, 55, 0.1); }
-    100% {
-        transform: scale(2.5);
-        background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, rgba(5,5,8,0) 70%);
-        box-shadow: 0 0 60px rgba(212, 175, 55, 0.3), inset 0 0 40px rgba(212, 175, 55, 0.2);
-    }
-}
+.sanctuary-btn:hover { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 1); color: #E8DCC4; box-shadow: 0px 0px 25px rgba(212, 175, 55, 0.6); animation: none; }
+@keyframes buttonBreathe { 0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); } 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); } }
