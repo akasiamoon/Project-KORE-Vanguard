@@ -10,16 +10,13 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
 @keyframes imageBreathe { 0% { transform: scale(1.05); } 100% { transform: scale(1.075); } }
 
-/* --- SOMATIC HIJACK OVERLAY --- */
+/* --- SOMATIC HIJACK --- */
 .somatic-filter {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: rgba(229, 149, 0, 0); 
     z-index: 10; pointer-events: none; transition: background-color 1.5s ease-in-out;
 }
-.somatic-filter.active { 
-    background-color: rgba(229, 149, 0, 0.3); 
-    animation: somaticBreathe 4s infinite alternate ease-in-out; 
-}
+.somatic-filter.active { background-color: rgba(229, 149, 0, 0.3); pointer-events: auto; animation: somaticBreathe 4s infinite alternate ease-in-out; }
 @keyframes somaticBreathe { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
 
 /* --- KORE PORTAL OVERLAYS (LUXURY TYPOGRAPHY) --- */
@@ -35,7 +32,7 @@ body, html { margin: 0; padding: 0; background-color: #050508; overflow: hidden;
 .kore-title { font-family: 'Times New Roman', serif; color: #E8DCC4; font-size: 5rem; letter-spacing: 15px; margin: 0 0 10px 0; text-shadow: 0 0 35px rgba(229, 179, 118, 0.6); }
 .kore-tagline { font-family: Arial, sans-serif; color: #D4AF37; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 50px; opacity: 0.9; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
 
-/* LUXURY BUTTON */
+/* LUXURY BUTTONS */
 .sanctuary-btn {
     background: rgba(20, 20, 20, 0.3); border: 1px solid rgba(212, 175, 55, 0.5); color: #D4AF37;
     padding: 15px 40px; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border-radius: 4px;
