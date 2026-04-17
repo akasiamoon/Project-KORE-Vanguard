@@ -17,3 +17,13 @@ Join the Guild or remain in the static.
 Join the Guild or remain in the static. 
 
 - The Architect
+
+# STATUS // 003
+
+* **Institutional Clones:** 1,564.  592 unique.  5 day burn (Verified)
+* **Vault Status:** Locked / Staged.  
+
+Join the Guild or remain in the static. 
+
+- The Architect
+
