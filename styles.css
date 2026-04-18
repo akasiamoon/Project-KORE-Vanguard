@@ -10,48 +10,53 @@ html, body {
     position: relative; /* Anchor for Absolute positioning */
 }
 
-/* --- THE HEARTH --- */
+/* --- THE HEARTH (Layer 1) --- */
 .hearth-container {
     position: absolute; 
-    top: 0; left: 0; right: 0; bottom: -5px;
+    top: 0; left: 0; right: 0; 
+    bottom: -5px; /* Keeps glitch buried */
     background-image: url('pax.png'); 
     background-size: cover; 
     background-position: center center; 
     background-repeat: no-repeat;
-    z-index: 1; 
-    transform: scale(1.15); /* Pushes edges off-screen to hide S9 scan-glitch */
+    z-index: 1 !important; /* Forced to back */
+    transform: scale(1.15); 
 }
 .hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
 @keyframes imageBreathe { 0% { transform: scale(1.15); } 100% { transform: scale(1.2); } }
 
-/* --- SOMATIC HIJACK --- */
+/* --- SOMATIC HIJACK (Layer 2 - THE GLOW) --- */
 .somatic-filter {
     position: absolute; 
-    top: 0; left: 0; width: 100%; calc(100% + 5px);
+    top: 0; left: 0; 
+    width: 100%; 
+    height: calc(100% + 5px); /* FIXED: Added missing 'height:' label */
     background-color: rgba(229, 149, 0, 0); 
-    z-index: 10; 
+    z-index: 500 !important; /* Forced to middle, above the image */
     pointer-events: none; 
     transition: background-color 2.5s ease-in-out;
+    display: block !important;
 }
+
 .somatic-filter.active { 
-    background-color: rgba(229, 149, 0, 0.4) !important; /* Bumped to 0.4 for visibility */
+    background-color: rgba(229, 149, 0, 0.35) !important; /* The 2300K Gold */
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto; 
     animation: somaticBreathe 4s infinite alternate ease-in-out;
-    /* This next line forces the S9 to "wake up" the layer */
-    backdrop-filter: sepia(20%) brightness(0.9); 
+    /* Forces S9 GPU to prioritize this layer */
+    backdrop-filter: sepia(10%) brightness(0.95); 
 }
 @keyframes somaticBreathe { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
 
-/* --- KORE PORTAL OVERLAYS --- */
+/* --- KORE PORTAL OVERLAYS (Layer 3) --- */
 .fullscreen-overlay {
     position: absolute; 
     top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(5, 5, 8, 0.7); 
-    backdrop-filter: blur(15px); /* Optimized for S9 processing speed */
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    z-index: 9999; 
+    z-index: 9999 !important; /* Forced to front */
     display: flex; 
     justify-content: center; 
     align-items: center; 
