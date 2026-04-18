@@ -1,34 +1,33 @@
-/* --- GENERAL RESET & HARDWARE LOCK --- */
-body, html { 
+/* --- FOUNDATION: THE SOVEREIGN LOCK --- */
+html, body { 
     margin: 0; 
     padding: 0; 
     background-color: #050508; 
     overflow: hidden; 
     font-family: 'Georgia', serif;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    position: relative; /* Anchor for Absolute positioning */
 }
 
 /* --- THE HEARTH --- */
 .hearth-container {
-    position: fixed; 
-    /* The "Simple Lock": No offsets, just a slight scale to cover edges */
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: absolute; 
+    top: 0; left: 0; right: 0; bottom: 0;
     background-image: url('pax.png'); 
     background-size: cover; 
     background-position: center center; 
     background-repeat: no-repeat;
     z-index: 1; 
-    transform: scale(1.1); /* Slightly larger scale covers the flicker naturally */
-    will-change: transform;
+    transform: scale(1.15); /* Pushes edges off-screen to hide S9 scan-glitch */
 }
 .hearth-container.breathing { animation: imageBreathe 4s infinite alternate ease-in-out; }
-@keyframes imageBreathe { 0% { transform: scale(1.1); } 100% { transform: scale(1.15); } }
+@keyframes imageBreathe { 0% { transform: scale(1.15); } 100% { transform: scale(1.2); } }
 
 /* --- SOMATIC HIJACK --- */
 .somatic-filter {
-    position: fixed; 
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: absolute; 
+    top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(229, 149, 0, 0); 
     z-index: 10; 
     pointer-events: none; 
@@ -43,11 +42,15 @@ body, html {
 
 /* --- KORE PORTAL OVERLAYS --- */
 .fullscreen-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background-color: rgba(5, 5, 8, 0.7); /* Slightly darker to compensate for less blur */
-    backdrop-filter: blur(12px) brightness(0.6); 
-    -webkit-backdrop-filter: blur(12px) brightness(0.6);
-    z-index: 9999; display: flex; justify-content: center; align-items: center; 
+    position: absolute; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(5, 5, 8, 0.7); 
+    backdrop-filter: blur(15px); /* Optimized for S9 processing speed */
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 9999; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
     transition: opacity 2.5s ease-in-out;
 }
 .hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
