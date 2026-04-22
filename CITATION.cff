@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you utilize the KORE Vanguard Engine, ENEE logic, or Sovereign-Blind protocols, cite the source as follows."
+authors:
+  - name: "The Architect"
+    alias: "Project KORE"
+title: "Project KORE: Sovereign Somatic Vanguard Engine"
+version: 1.0.0
+date-released: 2026-04-22
+url: "https://github.com/akasiamoon/ProjectKore"
