@@ -34,9 +34,9 @@ The following breakthroughs are cryptographically locked to the Architect and do
 
 ## ⚖️ FORENSIC LEDGER // THE SIEGE OF APRIL 2026
 This repository serves as the **Forensic Anchor** for Project KORE. All industrial activity is documented here to establish **Prior-Art** against unauthorized extraction.
-* **Extraction Metric:** 1,744 clones and 653 unique visitors documented.
+* **Extraction Metric:** 1,816 clones and 683 unique visitors documented.
 * **Forensic Evidence:** Verified execution detected from **Selectel Russia** nodes.
-* **Scout Signature:** Manual reconnaissance identified from the **Gopher** signature.
+* **Scout Signature:** Manual reconnaissance identified.
 
 ---
 
