@@ -47,7 +47,7 @@ For authorized Google AI for Science reviewers:
 ---
 
 ## 📜 LICENSE: SOVEREIGN ARCHITECTURAL LICENSE (SAL)
-**Proprietary / Institutional Audit Stage.** All rights reserved. Logic is the intellectual property of **Amber Tucker**.
+**Proprietary / Institutional Audit Stage.** All rights reserved. Logic is the intellectual property of **PROJECT KORE**.
 
 ---
 
