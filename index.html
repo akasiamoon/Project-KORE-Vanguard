@@ -97,48 +97,4 @@ function startHeartbeat() {
     if ("vibrate" in navigator) { 
         clearInterval(heartbeatInterval); 
         navigator.vibrate([40, 60, 40]);
-        heartbeatInterval = setInterval(() => navigator.vibrate([40, 60, 40]), 4000);
-    } 
-}
-
-function revealGuildCovenant() {
-    const exitScreen = document.getElementById('exit-screen');
-    if (exitScreen) {
-        exitScreen.style.display = 'flex';
-        exitScreen.classList.remove('hidden');
-        const tagline = exitScreen.querySelector('.kore-tagline');
-        if (tagline) {
-            tagline.innerHTML = `
-                <button id="final-cta-btn" class="sanctuary-btn" style="cursor: pointer;">CLAIM YOUR SEAT</button>
-                <p style="font-size: 0.7rem; margin-top: 20px; opacity: 0.5; letter-spacing: 2px;">OR REMAIN IN THE STATIC.</p>
-            `;
-            const btn = document.getElementById('final-cta-btn');
-            if (btn) {
-                btn.onmousedown = joinTheGuild;
-                btn.ontouchstart = joinTheGuild;
-            }
-        }
-    }
-}
-
-function joinTheGuild(e) {
-    if (e) e.preventDefault();
-    const recipient = "architect.kore@proton.me";
-    const subject = "GUILD ADMITTANCE REQUEST";
-    const body = "The Ledger has been decrypted. I have seen the blueprint from the kitchen floor. I am ready to discuss the move against the monopoly.";
-    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
-document.addEventListener('keydown', (event) => {
-    if (event.key.toLowerCase() === 'e') {
-        const exitScreen = document.getElementById('exit-screen');
-        if(exitScreen) {
-            exitScreen.style.display = 'flex'; 
-            exitScreen.classList.remove('hidden'); 
-        }
-        setTimeout(() => {
-            paxSpeak("The Old Road awaits.");
-        }, 1000);
-    }
-});
-
+        heartbeatInterval = setInterval(() => navigator.vibrate([40, 6
