@@ -6,12 +6,12 @@
     <title>THE GUILD HALL // PROJECT KORE</title>
 
     <script>
-        // If the Sync Key is missing, hard-redirect to the boot sequence
+        // THE GATEKEEPER: If the Sync Key is missing, hard-redirect to the boot sequence
         if (!sessionStorage.getItem('KORE_Synced')) {
             window.location.href = 'teaser.html';
         }
         
-        // Refresh Tether (Ensures clean boot on accidental swipe)
+        // REFRESH TETHER: Ensures clean boot on accidental swipe
         if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
             window.location.href = "guild.html"; 
         }
@@ -28,13 +28,129 @@
         [x-cloak] { display: none !important; }
         
         /* --- THE ALIGNMENT ARRAY --- */
-        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.9); }
+        /* FIXED: Unified Glass opacity to 0.85 */
+        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.85); }
         [data-palette="LUNAR"] { --bg: #0a0c10; --accent: #a8c0ff; --text: #ffffff; }
         [data-palette="VELLUM"] { --bg: #0f0d0b; --accent: #c4a484; --text: #d2b48c; }
         [data-palette="AMETHYST"] { --bg: #0d0510; --accent: #cd7f32; --text: #9b59b6; }
 
+        /* CORRECT: Visual Anchor is locked to atrium_8k.webp */
         body {
             margin: 0; height: 100vh; overflow: hidden;
+            font-family: 'Georgia', serif;
+            background: var(--bg) url('atrium_8k.webp') center/cover no-repeat;
+            color: var(--text); transition: 0.8s; transform: translateZ(0);
+        }
+
+        /* --- SOMATIC ANCHORS (6Hz & 4-7-8) --- */
+        .neural-anchor { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); opacity: 0; pointer-events: none; z-index: 9999; animation: brainReset 0.166s infinite alternate; }
+        @keyframes brainReset { from { opacity: 0; } to { opacity: 0.02; } }
+        
+        .breathing-filigree { position: fixed; bottom: -10%; right: -10%; width: 70%; height: 70%; background: radial-gradient(circle at bottom right, var(--accent), transparent 70%); filter: blur(60px); pointer-events: none; z-index: 1; animation: somaticBreath 19s infinite ease-in-out; }
+        @keyframes somaticBreath { 0%, 100% { opacity: 0.05; transform: scale(1); } 21%, 58% { opacity: 0.3; transform: scale(1.1); } }
+
+        /* --- NAVIGATION HOT ZONES --- */
+        .hot-zone { position: absolute; z-index: 10; display: flex; justify-content: center; align-items: center; color: transparent; text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; cursor: pointer; transition: 0.5s; text-decoration: none; }
+        .hot-zone:hover { color: var(--accent); background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%); text-shadow: 0 0 15px #000; }
+        
+        .zone-tl { top: 0; left: 0; width: 25vw; height: 30vh; }
+        .zone-tr { top: 0; right: 0; width: 25vw; height: 30vh; }
+        .zone-bl { bottom: 0; left: 0; width: 25vw; height: 30vh; }
+        .zone-br { bottom: 0; right: 0; width: 25vw; height: 30vh; }
+        .zone-tc { top: 0; left: 50%; transform: translateX(-50%); width: 35vw; height: 15vh; }
+        .zone-bc { bottom: 0; left: 50%; transform: translateX(-50%); width: 35vw; height: 15vh; }
+
+        .artifact-btn { background: var(--glass); border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 2px; }
+
+        /* --- MODAL & TACTICAL LEDGER --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+        
+        /* FIXED: Modal Content brought up to AAA Glass Standards */
+        .modal-content { background: var(--glass); border: 1px solid var(--accent); padding: 40px; width: 90%; max-width: 500px; color: white; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9); }
+        
+        /* FIXED: Scratch Pad unified with the global Glass Engine */
+        .scratch-pad { position: absolute; bottom: 18vh; left: 50%; transform: translateX(-50%); width: 450px; height: 200px; background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--accent); color: #fdfbf7; padding: 25px; font-size: 1.1rem; outline: none; resize: none; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9); z-index: 20; }
+        
+        .forensic-footer { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 0.6rem; letter-spacing: 2px; opacity: 0.3; pointer-events: none; }
+    </style>
+</head>
+<body x-data="guildApp()">
+
+    <div class="neural-anchor"></div>
+    <div class="breathing-filigree"></div>
+
+    <div style="position: absolute; top: 30px; right: 40px; z-index: 100;">
+        <button class="artifact-btn" onclick="toggleAlignment()">✨ ALIGNMENT</button>
+    </div>
+
+    <a href="covenant.html" class="hot-zone zone-tl">The Covenant</a>
+    <a href="archive.html" class="hot-zone zone-tr">The Archive</a>
+    <a href="hearth.html" class="hot-zone zone-bl">The Hearth</a>
+    <a href="gallery.html" class="hot-zone zone-br">The Gallery</a>
+    
+    <div class="hot-zone zone-tc" @click="showResonance = true">The Resonance</div>
+    <div class="hot-zone zone-bc" @click="toggleLedger()">Tactical Ledger</div>
+
+    <div class="modal-overlay" x-show="showResonance" x-cloak x-transition>
+        <div class="modal-content">
+            <button style="float:right; background:none; border:none; color:var(--accent); cursor:pointer;" @click="showResonance = false">✕ CLOSE</button>
+            <h2 style="text-align:center; letter-spacing:5px; margin-bottom: 20px; color: var(--accent);">THE RESONANCE</h2>
+            <div id="mixer-list"></div>
+            <button onclick="stopAll()" style="margin-top:20px; width:100%; padding:15px; border:1px solid var(--accent); background:none; color:var(--accent); cursor:pointer; text-transform:uppercase;">Silence the Hearth</button>
+        </div>
+    </div>
+
+    <textarea x-cloak x-show="showLedger" class="scratch-pad" x-model="ledgerText" @input="saveLedger()" placeholder="Whisper your thoughts to the Forge..." x-ref="ledgerInput"></textarea>
+
+    <div class="forensic-footer">
+        PROJECT KORE // ID: 53858700 // FORENSIC ATRIUM // GNU GPL V3
+    </div>
+
+    <script>
+        /* 1. ALIGNMENT KERNEL */
+        const palettes = ['NOIR', 'LUNAR', 'VELLUM', 'AMETHYST'];
+        function toggleAlignment() {
+            let current = localStorage.getItem('KORE_Palette') || 'NOIR';
+            let next = palettes[(palettes.indexOf(current) + 1) % palettes.length];
+            document.documentElement.setAttribute('data-palette', next);
+            localStorage.setItem('KORE_Palette', next);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.setAttribute('data-palette', localStorage.getItem('KORE_Palette') || 'NOIR');
+        });
+
+        /* 2. ATRIUM APP LOGIC */
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('guildApp', () => ({
+                showLedger: false, 
+                showResonance: false, 
+                ledgerText: '', 
+                init() { 
+                    this.ledgerText = localStorage.getItem('KORE_Tactical_Ledger') || ''; 
+                    if(window.buildMixerUI) window.buildMixerUI();
+                },
+                toggleLedger() { 
+                    this.showLedger = !this.showLedger; 
+                    if(this.showLedger) setTimeout(() => this.$refs.ledgerInput.focus(), 50); 
+                },
+                saveLedger() { 
+                    localStorage.setItem('KORE_Tactical_Ledger', this.ledgerText); 
+                }
+            }))
+        });
+
+        /* 3. THE SOVEREIGN SHIELD (PRIMARY REGISTRATION) */
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('KORE // Primary Shield Active.'))
+                    .catch(err => console.error('Shield Initiation Failure:', err));
+            });
+        }
+    </script>
+</body>
+</html>            margin: 0; height: 100vh; overflow: hidden;
             font-family: 'Georgia', serif;
             background: var(--bg) url('atrium_8k.webp') center/cover no-repeat;
             color: var(--text); transition: 0.8s; transform: translateZ(0);
