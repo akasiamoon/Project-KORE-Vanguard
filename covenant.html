@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <script>
-        // If the Sync Key is missing, hard-redirect to the boot sequence
+        // THE GATEKEEPER: If the Sync Key is missing, hard-redirect to the boot sequence
         if (!sessionStorage.getItem('KORE_Synced')) {
             window.location.href = 'teaser.html';
         }
         
-        // Refresh Tether (Ensures clean boot on accidental swipe)
+        // REFRESH TETHER: Ensures clean boot on accidental swipe
         if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
             window.location.href = "guild.html"; 
         }
@@ -20,21 +20,17 @@
     <meta name="theme-color" content="#d4af37">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script>
-        if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
-            window.location.href = "guild.html"; 
-        }
-    </script>
-
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="audio-engine.js"></script>
     
     <style>
-        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.95); }
+        /* FIXED: Glass opacity tuned to 0.85 for visual bleed */
+        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.85); }
         [data-palette="LUNAR"] { --bg: #0a0c10; --accent: #a8c0ff; --text: #ffffff; }
         [data-palette="VELLUM"] { --bg: #0f0d0b; --accent: #c4a484; --text: #d2b48c; }
         [data-palette="AMETHYST"] { --bg: #0d0510; --accent: #cd7f32; --text: #9b59b6; }
         
+        /* CORRECT: Visual Anchor is locked to command_8k.webp */
         body { margin: 0; height: 100vh; overflow: hidden; font-family: 'Georgia', serif; background: var(--bg) url('command_8k.webp') center/cover no-repeat; color: var(--text); transition: 0.8s; }
         
         .neural-anchor { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); opacity: 0; pointer-events: none; z-index: 9999; animation: brainReset 0.166s infinite alternate; }
@@ -44,7 +40,10 @@
         @keyframes somaticBreath { 0%, 100% { opacity: 0.05; transform: scale(1); } 21%, 58% { opacity: 0.3; transform: scale(1.1); } }
         
         #interface { height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 10; position: relative; }
-        .vault { border: 1px solid var(--accent); padding: 50px; background: var(--glass); width: 80%; max-width: 700px; backdrop-filter: blur(25px); }
+        
+        /* FIXED: Floating Glassmorphism at 20px blur with AAA shadow */
+        .vault { border: 1px solid var(--accent); padding: 50px; background: var(--glass); width: 80%; max-width: 700px; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9); }
+        
         .artifact-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 2px; }
     </style>
 </head>
