@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        // If the Sync Key is missing, hard-redirect to the boot sequence
+        if (!sessionStorage.getItem('KORE_Synced')) {
+            window.location.href = 'teaser.html';
+        }
+        
+        // Refresh Tether (Ensures clean boot on accidental swipe)
+        if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
+            window.location.href = "guild.html"; 
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>THE GALLERY // PROJECT KORE</title>
