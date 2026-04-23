@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d4af37">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script>
+    if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
+        window.location.href = "guild.html"; 
+    }
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="audio-engine.js"></script>
     <meta charset="UTF-8"><title>THE HEARTH // PROJECT KORE</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>if (performance.navigation.type === 1) { window.location.href = "guild.html"; }</script>
