@@ -5,7 +5,7 @@
 ---
 
 ## 🏛️ THE SIGNAL MANDATE
-The PAX Transmission is the live broadcast of the **Project KORE** breach. It documents the industrial "Static" and extraction attempts to establish **Prior-Art Validation** for the **AI for Science (0826)** grant. 
+The Guild Transmission is the live broadcast of the **Project KORE** breach. It documents the industrial "Static" and extraction attempts to establish **Prior-Art Validation** for the **AI for Science (0826)** grant. 
 
 **"You can clone the shell, but you cannot clone the spirit of the 90%."**
 
