@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        // THE GATEKEEPER: If the Sync Key is missing, hard-redirect to the boot sequence
+        if (!sessionStorage.getItem('KORE_Synced')) {
+            window.location.href = 'teaser.html';
+        }
+        
+        // REFRESH TETHER: Ensures clean boot on accidental swipe
+        if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
+            window.location.href = "guild.html"; 
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE RESONANCE // PROJECT KORE</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="audio-engine.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* FIXED: AAA Glass Engine deployed */
+        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.85); }
+        [data-palette="LUNAR"] { --bg: #0a0c10; --accent: #a8c0ff; --text: #ffffff; }
+        [data-palette="VELLUM"] { --bg: #0f0d0b; --accent: #c4a484; --text: #d2b48c; }
+        [data-palette="AMETHYST"] { --bg: #0d0510; --accent: #cd7f32; --text: #9b59b6; }
+
+        /* CORRECT: Visual Anchor is locked to resonance_8k.webp */
+        body { 
+            margin: 0; height: 100vh; overflow: hidden;
+            background: var(--bg) url('resonance_8k.webp') center/cover no-repeat fixed;
+            font-family: 'Georgia', serif; color: var(--text); transition: 0.8s;
+        }
+
+        /* --- SOMATIC ANCHORS --- */
+        .neural-anchor { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); opacity: 0; pointer-events: none; z-index: 9999; animation: brainReset 0.166s infinite alternate; }
+        @keyframes brainReset { from { opacity: 0; } to { opacity: 0.02; } }
+        
+        .breathing-filigree { position: fixed; bottom: -10%; right: -10%; width: 70%; height: 70%; background: radial-gradient(circle at bottom right, var(--accent), transparent 70%); filter: blur(60px); pointer-events: none; z-index: 1; animation: somaticBreath 19s infinite ease-in-out; }
+        @keyframes somaticBreath { 0%, 100% { opacity: 0.05; transform: scale(1); } 21%, 58% { opacity: 0.3; transform: scale(1.1); } }
+
+        /* --- THE MIXER INTERFACE --- */
+        #interface { height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 10; position: relative; }
+        
+        /* FIXED: Floating Glassmorphism at 20px blur with AAA shadow */
+        .mixer-panel {
+            width: 85%; max-width: 600px; height: 75vh;
+            background: var(--glass); border: 1px solid var(--accent);
+            backdrop-filter: blur(20px); padding: 40px; overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Custom Scrollbar for the Mixer */
+        .mixer-panel::-webkit-scrollbar { width: 4px; }
+        .mixer-panel::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        .sound-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .sound-name { font-size: 0.85rem; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
+        
+        input[type=range] { 
+            accent-color: var(--accent); cursor: pointer; width: 40%;
+            background: rgba(0,0,0,0.5); border-radius: 5px;
+        }
+
+        .nav-header { position: absolute; top: 30px; width: 100%; padding: 0 40px; display: flex; justify-content: space-between; box-sizing: border-box; z-index: 100; }
+        .artifact-btn { background: var(--glass); border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 2px; }
+    </style>
+</head>
+<body x-data="{ sounds: typeof soundLibrary !== 'undefined' ? soundLibrary : [] }">
+    <div class="neural-anchor"></div>
+    <div class="breathing-filigree"></div>
+
+    <nav class="nav-header">
+        <a href="guild.html" style="color: var(--accent); text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; background: var(--glass); padding: 10px 20px; border: 1px solid var(--accent);">◂ GUILD HALL</a>
+        <button class="artifact-btn" onclick="toggleAlignment()">✨ ALIGNMENT</button>
+    </nav>
+    
+    <main id="interface">
+        <div class="mixer-panel">
+            <h2 style="text-align:center; letter-spacing:8px; color:var(--accent); margin-bottom:30px;">THE RESONANCE</h2>
+            
+            <template x-for="sound in sounds" :key="sound.id">
+                <div class="sound-row">
+                    <span class="sound-name" x-text="sound.name"></span>
+                    <input type="range" min="0" max="1" step="0.05" value="0" 
+                           @input="updateVolume(sound.id, $event.target.value)">
+                </div>
+            </template>
+
+            <button onclick="stopAll()" style="width:100%; margin-top:40px; padding:15px; background:none; border:1px solid var(--accent); color:var(--accent); cursor:pointer; letter-spacing: 4px; text-transform: uppercase; transition: 0.3s;" onmouseover="this.style.background='rgba(212, 175, 55, 0.1)'" onmouseout="this.style.background='none'">SILENCE THE HEARTH</button>
+        </div>
+    </main>
+
+    <script>
+        function toggleAlignment() {
+            const palettes = ['NOIR', 'LUNAR', 'VELLUM', 'AMETHYST'];
+            let next = palettes[(palettes.indexOf(localStorage.getItem('KORE_Palette') || 'NOIR') + 1) % palettes.length];
+            document.documentElement.setAttribute('data-palette', next);
+            localStorage.setItem('KORE_Palette', next);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            document.documentElement.setAttribute('data-palette', localStorage.getItem('KORE_Palette') || 'NOIR'); 
+        });
+
+        /* THE SOVEREIGN SHIELD HANDSHAKE */
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('KORE // Resonance Shield Verified.'))
+                .catch(err => console.error('Shield Sync Failure:', err));
+        }
+    </script>
+</body>
+</html>
