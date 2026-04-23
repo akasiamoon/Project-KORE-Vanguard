@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE GALLERY // PROJECT KORE</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        if (performance.navigation.type === 1 || window.performance.getEntriesByType("navigation")[0].type === "reload") {
+            window.location.href = "guild.html"; 
+        }
+    </script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* --- THE ALIGNMENT ARRAY --- */
+        :root { --bg: #050505; --accent: #d4af37; --text: #e0e0e0; --glass: rgba(15, 15, 15, 0.9); }
+        [data-palette="LUNAR"] { --bg: #0a0c10; --accent: #a8c0ff; --text: #ffffff; --glass: rgba(10, 12, 16, 0.9); }
+        [data-palette="VELLUM"] { --bg: #0f0d0b; --accent: #c4a484; --text: #d2b48c; --glass: rgba(35, 25, 20, 0.95); }
+        [data-palette="AMETHYST"] { --bg: #0d0510; --accent: #cd7f32; --text: #9b59b6; --glass: rgba(30, 10, 40, 0.9); }
+
+        body {
+            margin: 0; min-height: 100vh; overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            background: var(--bg) url('gallery_8k.webp') center/cover no-repeat fixed;
+            color: var(--text); transition: 0.8s;
+        }
+
+        /* --- SOMATIC ANCHORS --- */
+        .neural-anchor { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); opacity: 0; pointer-events: none; z-index: 9999; animation: brainReset 0.166s infinite alternate; }
+        @keyframes brainReset { from { opacity: 0; } to { opacity: 0.02; } }
+        
+        .breathing-filigree { position: fixed; bottom: -10%; right: -10%; width: 70%; height: 70%; background: radial-gradient(circle at bottom right, var(--accent), transparent 70%); filter: blur(60px); pointer-events: none; z-index: 1; animation: somaticBreath 19s infinite ease-in-out; }
+        @keyframes somaticBreath { 0%, 100% { opacity: 0.05; transform: scale(1); } 21%, 58% { opacity: 0.3; transform: scale(1.1); } }
+
+        /* --- HEADER & NAV --- */
+        .nav-header { position: sticky; top: 0; width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 100; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); box-sizing: border-box; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; transition: 0.4s; }
+        .back-link:hover { opacity: 1; text-shadow: 0 0 15px var(--accent); }
+        
+        .artifact-btn { background: var(--glass); border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; letter-spacing: 2px; }
+
+        /* --- GALLERY GRID --- */
+        .vault-container { padding: 60px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; z-index: 10; }
+        
+        .asset-frame {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); padding: 10px;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: zoom-in;
+        }
+        .asset-frame:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        
+        .asset-img { width: 100%; height: 450px; object-fit: cover; filter: sepia(0.2) contrast(1.1); }
+        
+        .asset-label { padding: 15px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); display: flex; justify-content: space-between; }
+
+        /* --- FORENSIC FOOTER --- */
+        .forensic-footer { padding: 40px; text-align: center; font-size: 0.6rem; letter-spacing: 2px; opacity: 0.3; }
+    </style>
+</head>
+<body x-data="galleryApp()">
+    <div class="neural-anchor"></div>
+    <div class="breathing-filigree"></div>
+
+    <nav class="nav-header">
+        <a href="guild.html" class="back-link">◂ THE GUILD HALL</a>
+        <div style="display:flex; gap:15px;">
+            <button class="artifact-btn" onclick="toggleAlignment()">✨ ALIGNMENT</button>
+            <button class="artifact-btn" onclick="window.location.href='resonance.html'">RESONANCE</button>
+        </div>
+    </nav>
+
+    <main class="vault-container">
+        <div class="asset-frame">
+            <img src="hearth_render.webp" class="asset-img" alt="8K Hearth Render">
+            <div class="asset-label">
+                <span>01 // THE HEARTH ATRIUM</span>
+                <span>8K AAA</span>
+            </div>
+        </div>
+
+        <div class="asset-frame">
+            <img src="archive_render.webp" class="asset-img" alt="8K Archive Render">
+            <div class="asset-label">
+                <span>02 // CHRONICLER SECTOR</span>
+                <span>8K AAA</span>
+            </div>
+        </div>
+
+        <div class="asset-frame">
+            <img src="Apotheosis.png" class="asset-img" alt="The Chronicler's Nook">
+            <div class="asset-label">
+                <span>03 // APOTHEOSIS NOOK</span>
+                <span>ORIGINAL CORE</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="forensic-footer">
+        PROJECT KORE // THE GALLERY // ID: 53858700 // GNU GPL V3
+    </div>
+
+    <script>
+        const palettes = ['NOIR', 'LUNAR', 'VELLUM', 'AMETHYST'];
+        function toggleAlignment() {
+            let next = palettes[(palettes.indexOf(localStorage.getItem('KORE_Palette') || 'NOIR') + 1) % palettes.length];
+            document.documentElement.setAttribute('data-palette', next);
+            localStorage.setItem('KORE_Palette', next);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.setAttribute('data-palette', localStorage.getItem('KORE_Palette') || 'NOIR');
+        });
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('galleryApp', () => ({ init() { console.log("Gallery Infrastructure Hardened."); } }))
+        })
+    </script>
+</body>
+</html>
