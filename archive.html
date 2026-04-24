@@ -3,182 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROJECT KORE // THE ARCHIVE</title>
+    <title>KORE // THE ARCHIVE</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,300;0,600;1,300&display=swap');
+
         [x-cloak] { display: none !important; }
 
         :root {
             --obsidian: #05070a;
-            --gold: #d4af37;
-            --amethyst: #9966cc;
-            --bronze: #cd7f32;
-            --glass: rgba(216, 180, 226, 0.1);
-            --text-main: #d8b4e2;
-            --pulse-speed: 0.166s; /* 6Hz Pulse Frequency */
+            --gold-leaf: #c5a059;
+            --gold-glow: rgba(197, 160, 89, 0.3);
+            --amethyst: #634087;
+            --glass: rgba(10, 15, 25, 0.7);
+            --border: 1px solid rgba(197, 160, 89, 0.2);
         }
 
         body {
             margin: 0; height: 100vh; overflow: hidden;
-            font-family: 'Garamond', 'Georgia', serif;
-            background: var(--obsidian);
-            /* THE NUCLEAR BRIDGE: 8K VISUAL EQUITY ASSET */
-            background: radial-gradient(circle at center, rgba(26,26,26,0.5) 0%, #05070a 100%), 
-                        url('assets/gallery_8k.webp') center/cover no-repeat;
-            color: var(--text-main);
+            font-family: 'Spectral', serif;
+            background-color: var(--obsidian);
+            /* FALLBACK GRADIENT + THE 8K ASSET */
+            background: 
+                radial-gradient(circle at center, rgba(5,7,10,0) 0%, rgba(5,7,10,0.9) 100%),
+                url('gallery_8k.webp') center/cover no-repeat;
+            color: #e0d8c3;
             display: flex; flex-direction: column;
-            transition: filter 0.5s ease-in-out;
         }
 
-        /* SOVEREIGN-BLIND VEIL */
-        .veiled { filter: blur(50px) brightness(0.2) grayscale(1); pointer-events: none; }
-        
-        /* CHIAROSCURO (MAX SIEGE MODE) */
-        .siege-mode { filter: contrast(1.4) brightness(0.4) saturate(0.8); }
-        .siege-mode .desk-card { border-color: var(--gold); }
+        /* SOVEREIGN-BLIND VEIL (ESC) */
+        .veiled { filter: blur(60px) brightness(0.1) grayscale(1); pointer-events: none; }
 
-        /* 6Hz VISUAL GROUNDING PULSE */
-        @keyframes grounding-pulse {
-            0% { opacity: 0.1; }
-            50% { opacity: 0.22; }
-            100% { opacity: 0.1; }
-        }
-        .pulse-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            pointer-events: none; z-index: 1;
-            background: var(--amethyst);
-            animation: grounding-pulse var(--pulse-speed) infinite ease-in-out;
-            mix-blend-mode: soft-light;
-            display: none;
-        }
-        .pulse-active { display: block; }
-
-        /* THE CHRONICLER'S HEADER */
+        /* THE HEADER (LUXURY MINIMALISM) */
         .nav-header {
-            position: absolute; top: 0; left: 0; width: 100%;
-            padding: 30px 40px; display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; box-sizing: border-box;
+            padding: 40px 60px; display: flex; justify-content: space-between; align-items: center;
+            z-index: 100;
         }
 
-        .kore-logo {
-            font-size: 0.75rem; letter-spacing: 6px; color: var(--gold);
-            text-transform: uppercase; text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        .artifact-btn {
-            background: rgba(5, 7, 10, 0.4); backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.2); color: var(--text-main);
-            padding: 10px 20px; border-radius: 0; cursor: pointer;
-            font-size: 0.6rem; letter-spacing: 3px; transition: 0.4s;
+        .kore-title {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 8px;
+            color: var(--gold-leaf); text-shadow: 0 0 20px var(--gold-glow);
             text-transform: uppercase;
         }
-        .artifact-btn:hover { border-color: var(--gold); color: #fff; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-        .active-state { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); color: var(--gold); }
 
-        /* THE WORKSPACE */
-        .workspace { display: flex; flex: 1; padding: 120px 40px 40px; gap: 30px; overflow: hidden; z-index: 10; }
-
-        /* AESTHETIC ARRAY THEMES */
-        .theme-a { --text-main: #d4af37; --glass: rgba(212, 175, 55, 0.1); } 
-        .theme-b { --text-main: #ffffff; --glass: rgba(255, 255, 255, 0.15); } 
-        .theme-c { --text-main: #fdfbf7; --glass: rgba(205, 127, 50, 0.1); } 
-        .theme-d { --text-main: #d8b4e2; --glass: rgba(153, 102, 204, 0.15); } 
+        /* THE DESK (WORKSPACE) */
+        .workspace { display: flex; flex: 1; padding: 0 60px 60px; gap: 40px; overflow: hidden; }
 
         .desk-card {
-            background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(40px);
-            border: 1px solid var(--glass); border-radius: 0;
-            flex: 2; height: 80vh; padding: 60px; position: relative;
-            display: flex; flex-direction: column;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.95);
-            transition: all 0.5s ease;
+            background: var(--glass); backdrop-filter: blur(40px);
+            border: var(--border); position: relative;
+            flex: 2; display: flex; flex-direction: column; padding: 60px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8), inset 0 0 50px rgba(197, 160, 89, 0.05);
         }
-        
+
+        /* FILIGREE CORNERS */
+        .desk-card::before, .desk-card::after {
+            content: ''; position: absolute; width: 40px; height: 40px;
+            border: 2px solid var(--gold-leaf);
+        }
+        .desk-card::before { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+        .desk-card::after { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+
         .entry-title {
-            background: transparent; border: none; border-bottom: 1px solid var(--glass);
-            color: var(--gold); font-size: 2.2rem; font-family: inherit; outline: none; margin-bottom: 40px;
+            background: transparent; border: none; border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            color: #fff; font-family: 'Cinzel', serif; font-size: 2.4rem; outline: none;
+            margin-bottom: 30px; width: 100%; letter-spacing: 2px;
         }
-        
+
         .entry-body {
-            background: transparent; border: none; color: var(--text-main);
-            font-size: 1.2rem; line-height: 1.7; font-family: inherit;
-            outline: none; resize: none; flex: 1; opacity: 0.9;
+            background: transparent; border: none; color: #d1c7b0;
+            font-size: 1.3rem; line-height: 1.8; outline: none; resize: none;
+            flex: 1; font-style: italic; font-weight: 300;
         }
 
+        /* SIDEBAR (THE VAULT) */
         .sidebar {
-            background: rgba(5, 7, 10, 0.85); backdrop-filter: blur(40px);
-            border: 1px solid var(--glass); flex: 0.7; height: 80vh; padding: 35px;
-            display: flex; flex-direction: column;
+            background: var(--glass); backdrop-filter: blur(40px); border: var(--border);
+            width: 350px; display: flex; flex-direction: column; padding: 30px;
         }
 
-        .status-badge {
-            font-size: 0.55rem; letter-spacing: 3px; padding: 6px 12px;
-            background: rgba(212, 175, 55, 0.05); color: var(--gold);
-            display: inline-block; margin-bottom: 25px; text-transform: uppercase;
-            border-left: 2px solid var(--gold);
+        .section-label {
+            font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 4px;
+            color: var(--gold-leaf); margin-bottom: 20px; opacity: 0.6;
         }
 
-        .array-selector { display: flex; gap: 15px; margin-bottom: 40px; }
-        .array-dot {
-            width: 14px; height: 14px; border-radius: 0; cursor: pointer;
-            border: 1px solid var(--gold); transition: 0.3s;
+        /* BUTTONS */
+        .btn {
+            background: transparent; border: 1px solid var(--gold-leaf);
+            color: var(--gold-leaf); padding: 12px 24px; cursor: pointer;
+            font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px;
+            transition: 0.4s; margin-top: 20px;
         }
-        .dot-a { background: var(--obsidian); }
-        .dot-b { background: #fff; }
-        .dot-c { background: var(--bronze); }
-        .dot-d { background: var(--amethyst); }
+        .btn:hover { background: var(--gold-leaf); color: var(--obsidian); box-shadow: 0 0 30px var(--gold-glow); }
 
-        .commit-btn {
-            margin-top: 35px; padding: 18px; border: 1px solid var(--gold);
-            background: transparent; color: var(--gold); cursor: pointer;
-            letter-spacing: 4px; font-size: 0.65rem; transition: 0.4s;
-            text-transform: uppercase;
+        .nerve-btn {
+            background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.2);
+            color: var(--gold-leaf); padding: 8px 15px; font-size: 0.6rem; cursor: pointer;
+            letter-spacing: 2px; font-family: 'Cinzel', serif; margin-left: 10px;
         }
-        .commit-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
+        .nerve-btn.active { background: var(--gold-leaf); color: #000; }
+
+        /* 6Hz PULSE */
+        @keyframes pulse6Hz {
+            0% { opacity: 0; } 50% { opacity: 0.15; } 100% { opacity: 0; }
+        }
+        .pulse {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--amethyst); pointer-events: none; z-index: 5;
+            animation: pulse6Hz 0.166s infinite; display: none;
+        }
+        .pulse-on { display: block; }
     </style>
 </head>
-<body x-data="archiveApp()" 
-      :class="{'veiled': isVeiled, 'siege-mode': nerveStatus === 'C', 'theme-a': currentTheme === 'A', 'theme-b': currentTheme === 'B', 'theme-c': currentTheme === 'C', 'theme-d': currentTheme === 'D'}"
-      @keydown.escape.window="toggleVeil()">
+<body x-data="archiveApp()" :class="{'veiled': isVeiled}" @keydown.escape.window="isVeiled = !isVeiled">
 
-    <div class="pulse-overlay" :class="{'pulse-active': nerveStatus === 'B'}"></div>
+    <div class="pulse" :class="{'pulse-on': nerve === 'Static'}"></div>
 
     <nav class="nav-header">
-        <div class="kore-logo">KORE // THE ARCHIVE</div>
-        
-        <div style="display:flex; gap:15px;">
-            <button class="artifact-btn" @click="nerveStatus = 'A'" :class="nerveStatus === 'A' ? 'active-state' : ''">Grounded</button>
-            <button class="artifact-btn" @click="nerveStatus = 'B'" :class="nerveStatus === 'B' ? 'active-state' : ''">Static</button>
-            <button class="artifact-btn" @click="nerveStatus = 'C'" :class="nerveStatus === 'C' ? 'active-state' : ''">Siege</button>
-            <button class="artifact-btn" @click="toggleVeil()" style="border-color: var(--amethyst);">
-                <span x-text="isVeiled ? 'UNVEIL' : 'CLOAK (ESC)'"></span>
-            </button>
+        <div class="kore-title">Project Kore // Archive</div>
+        <div>
+            <button class="nerve-btn" @click="nerve = 'Grounded'" :class="nerve === 'Grounded' ? 'active' : ''">Grounded</button>
+            <button class="nerve-btn" @click="nerve = 'Static'" :class="nerve === 'Static' ? 'active' : ''">Static</button>
+            <button class="nerve-btn" @click="isVeiled = !isVeiled">Cloak</button>
         </div>
     </nav>
 
     <main class="workspace">
         <section class="desk-card">
-            <div class="status-badge">Chronicler Protocol // Ref: 0826-G</div>
-            <input type="text" class="entry-title" x-model="currentEntry.title" placeholder="A History of the Siege...">
-            <textarea class="entry-body" x-model="currentEntry.content" placeholder="Document the lore..."></textarea>
-            <button class="commit-btn" @click="saveEntry()">COMMIT TO SOVEREIGN MEMORY</button>
+            <input type="text" class="entry-title" x-model="current.title" placeholder="Untitled Scroll...">
+            <textarea class="entry-body" x-model="current.content" placeholder="Transmute the siege into lore..."></textarea>
+            <button class="btn" @click="save()">Commit to History</button>
         </section>
 
         <aside class="sidebar">
-            <h3 style="font-size: 0.65rem; letter-spacing: 4px; color: var(--gold); opacity: 0.7;">AESTHETIC ARRAYS</h3>
-            <div class="array-selector">
-                <div class="array-dot dot-a" @click="currentTheme = 'A'" title="Noir Filigree"></div>
-                <div class="array-dot dot-b" @click="currentTheme = 'B'" title="Lunar Glass"></div>
-                <div class="array-dot dot-c" @click="currentTheme = 'C'" title="Sovereign Vellum"></div>
-                <div class="array-dot dot-d" @click="currentTheme = 'D'" title="Amethyst Bronze"></div>
-            </div>
-
-            <h3 style="font-size: 0.65rem; letter-spacing: 4px; color: var(--gold); opacity: 0.7; margin-top: 25px;">VAULTED SCROLLS</h3>
-            <div style="overflow-y:auto; flex:1; margin-top: 15px;">
+            <div class="section-label">Vaulted Lore</div>
+            <div style="overflow-y: auto; flex: 1;">
                 <template x-for="entry in entries" :key="entry.id">
-                    <div style="padding:15px; border-bottom: 1px solid var(--glass); cursor:pointer;" @click="loadEntry(entry)">
-                        <div style="font-size:0.5rem; color: var(--gold); letter-spacing: 1px;" x-text="entry.timestamp"></div>
-                        <div style="font-size:0.9rem; margin-top:8px; opacity:0.8;" x-text="entry.title || 'Unknown Legend'"></div>
+                    <div style="padding: 15px 0; border-bottom: 1px solid rgba(197,160,89,0.1); cursor: pointer;" @click="current = {...entry}">
+                        <div style="font-size: 0.6rem; color: var(--gold-leaf); opacity: 0.5;" x-text="entry.date"></div>
+                        <div style="font-size: 1.1rem; margin-top: 5px; font-style: italic;" x-text="entry.title || 'Unknown Scroll'"></div>
                     </div>
                 </template>
             </div>
@@ -189,36 +153,21 @@
         function archiveApp() {
             return {
                 isVeiled: false,
-                nerveStatus: 'A',
-                currentTheme: 'A',
-                entries: [],
-                currentEntry: { id: null, title: '', content: '' },
-                
-                init() {
-                    // Local Storage is the Sovereign-Blind memory bank.
-                    this.entries = JSON.parse(localStorage.getItem('KORE_Archive_Vault')) || [];
-                },
-                
-                toggleVeil() { this.isVeiled = !this.isVeiled; },
-                
-                saveEntry() {
-                    if (!this.currentEntry.title && !this.currentEntry.content) return;
-                    const now = new Date();
-                    const timestamp = now.toLocaleDateString() + ' @ ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    
-                    if (this.currentEntry.id) {
-                        const idx = this.entries.findIndex(e => e.id === this.currentEntry.id);
-                        this.entries[idx] = { ...this.currentEntry, timestamp };
+                nerve: 'Grounded',
+                entries: JSON.parse(localStorage.getItem('KORE_LORE')) || [],
+                current: { id: null, title: '', content: '' },
+                save() {
+                    if(!this.current.title && !this.current.content) return;
+                    const date = new Date().toLocaleDateString();
+                    if(this.current.id) {
+                        const i = this.entries.findIndex(e => e.id === this.current.id);
+                        this.entries[i] = { ...this.current, date };
                     } else {
-                        const newId = Date.now();
-                        this.entries.push({ ...this.currentEntry, id: newId, timestamp });
-                        this.currentEntry.id = newId;
+                        this.entries.push({ ...this.current, id: Date.now(), date });
                     }
-                    localStorage.setItem('KORE_Archive_Vault', JSON.stringify(this.entries));
-                    alert("History Vaulted.");
-                },
-                
-                loadEntry(entry) { this.currentEntry = { ...entry }; }
+                    localStorage.setItem('KORE_LORE', JSON.stringify(this.entries));
+                    alert("Lore Anchored.");
+                }
             }
         }
     </script>
