@@ -12,164 +12,135 @@
         [x-cloak] { display: none !important; }
 
         :root {
-            --obsidian: #05070a;
+            --obsidian: #020406;
             --gold-leaf: #c5a059;
-            --gold-glow: rgba(197, 160, 89, 0.3);
-            --amethyst: #634087;
-            --glass: rgba(10, 15, 25, 0.7);
-            --border: 1px solid rgba(197, 160, 89, 0.2);
+            --gold-glow: rgba(197, 160, 89, 0.4);
+            --amethyst-resonance: rgba(99, 64, 135, 0.4);
+            --glass: rgba(5, 8, 15, 0.75);
+            --border: 1px solid rgba(197, 160, 89, 0.25);
         }
 
         body {
             margin: 0; height: 100vh; overflow: hidden;
             font-family: 'Spectral', serif;
             background-color: var(--obsidian);
-            /* FALLBACK GRADIENT + THE 8K ASSET */
+            /* THE NUCLEAR BRIDGE: 8K ASSET WITH VIGNETTE */
             background: 
-                radial-gradient(circle at center, rgba(5,7,10,0) 0%, rgba(5,7,10,0.9) 100%),
+                radial-gradient(circle at center, rgba(2,4,6,0.1) 0%, rgba(2,4,6,0.95) 100%),
                 url('gallery_8k.webp') center/cover no-repeat;
             color: #e0d8c3;
             display: flex; flex-direction: column;
         }
 
         /* SOVEREIGN-BLIND VEIL (ESC) */
-        .veiled { filter: blur(60px) brightness(0.1) grayscale(1); pointer-events: none; }
+        .veiled { filter: blur(70px) brightness(0.05) grayscale(1); pointer-events: none; }
 
-        /* THE HEADER (LUXURY MINIMALISM) */
+        /* SOMATIC LAYER (THE BREATH) */
+        @keyframes pulse6Hz {
+            0% { opacity: 0; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.02); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+        .somatic-pulse {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, var(--amethyst-resonance) 0%, transparent 70%);
+            pointer-events: none; z-index: 1;
+            mix-blend-mode: overlay; /* INTERACTS WITH IMAGE COLORS */
+            animation: pulse6Hz 0.166s infinite ease-in-out;
+            display: none;
+        }
+        .pulse-active { display: block; }
+
+        /* THE HEADER */
         .nav-header {
             padding: 40px 60px; display: flex; justify-content: space-between; align-items: center;
             z-index: 100;
         }
 
         .kore-title {
-            font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 8px;
-            color: var(--gold-leaf); text-shadow: 0 0 20px var(--gold-glow);
+            font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 10px;
+            color: var(--gold-leaf); text-shadow: 0 0 25px var(--gold-glow);
             text-transform: uppercase;
         }
 
-        /* THE DESK (WORKSPACE) */
-        .workspace { display: flex; flex: 1; padding: 0 60px 60px; gap: 40px; overflow: hidden; }
+        /* THE WORKSPACE */
+        .workspace { display: flex; flex: 1; padding: 0 60px 60px; gap: 40px; overflow: hidden; z-index: 10; }
 
         .desk-card {
-            background: var(--glass); backdrop-filter: blur(40px);
+            background: var(--glass); backdrop-filter: blur(50px);
             border: var(--border); position: relative;
             flex: 2; display: flex; flex-direction: column; padding: 60px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8), inset 0 0 50px rgba(197, 160, 89, 0.05);
+            box-shadow: 0 50px 120px rgba(0,0,0,0.9), inset 0 0 60px rgba(197, 160, 89, 0.03);
+            border-radius: 2px;
         }
 
-        /* FILIGREE CORNERS */
-        .desk-card::before, .desk-card::after {
-            content: ''; position: absolute; width: 40px; height: 40px;
-            border: 2px solid var(--gold-leaf);
+        /* GOLD FILIGREE ACCENTS */
+        .filigree {
+            position: absolute; width: 50px; height: 50px;
+            border: 1px solid var(--gold-leaf); opacity: 0.6;
         }
-        .desk-card::before { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
-        .desk-card::after { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+        .top-left { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+        .bottom-right { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
 
         .entry-title {
-            background: transparent; border: none; border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-            color: #fff; font-family: 'Cinzel', serif; font-size: 2.4rem; outline: none;
-            margin-bottom: 30px; width: 100%; letter-spacing: 2px;
+            background: transparent; border: none; border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+            color: #fff; font-family: 'Cinzel', serif; font-size: 2.2rem; outline: none;
+            margin-bottom: 30px; width: 100%; letter-spacing: 3px;
         }
 
         .entry-body {
             background: transparent; border: none; color: #d1c7b0;
-            font-size: 1.3rem; line-height: 1.8; outline: none; resize: none;
+            font-size: 1.25rem; line-height: 1.9; outline: none; resize: none;
             flex: 1; font-style: italic; font-weight: 300;
         }
 
         /* SIDEBAR (THE VAULT) */
         .sidebar {
-            background: var(--glass); backdrop-filter: blur(40px); border: var(--border);
-            width: 350px; display: flex; flex-direction: column; padding: 30px;
+            background: var(--glass); backdrop-filter: blur(50px); border: var(--border);
+            width: 350px; display: flex; flex-direction: column; padding: 35px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
         .section-label {
-            font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 4px;
-            color: var(--gold-leaf); margin-bottom: 20px; opacity: 0.6;
+            font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 5px;
+            color: var(--gold-leaf); margin-bottom: 25px; opacity: 0.5;
         }
 
         /* BUTTONS */
         .btn {
             background: transparent; border: 1px solid var(--gold-leaf);
-            color: var(--gold-leaf); padding: 12px 24px; cursor: pointer;
-            font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 3px;
-            transition: 0.4s; margin-top: 20px;
+            color: var(--gold-leaf); padding: 14px 28px; cursor: pointer;
+            font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 4px;
+            transition: 0.5s; margin-top: 25px; text-transform: uppercase;
         }
-        .btn:hover { background: var(--gold-leaf); color: var(--obsidian); box-shadow: 0 0 30px var(--gold-glow); }
+        .btn:hover { background: var(--gold-leaf); color: var(--obsidian); box-shadow: 0 0 40px var(--gold-glow); }
 
         .nerve-btn {
-            background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.2);
-            color: var(--gold-leaf); padding: 8px 15px; font-size: 0.6rem; cursor: pointer;
-            letter-spacing: 2px; font-family: 'Cinzel', serif; margin-left: 10px;
+            background: rgba(197, 160, 89, 0.03); border: 1px solid rgba(197, 160, 89, 0.15);
+            color: var(--gold-leaf); padding: 8px 18px; font-size: 0.55rem; cursor: pointer;
+            letter-spacing: 3px; font-family: 'Cinzel', serif; margin-left: 10px;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .nerve-btn.active { background: var(--gold-leaf); color: #000; }
-
-        /* 6Hz PULSE */
-        @keyframes pulse6Hz {
-            0% { opacity: 0; } 50% { opacity: 0.15; } 100% { opacity: 0; }
-        }
-        .pulse {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--amethyst); pointer-events: none; z-index: 5;
-            animation: pulse6Hz 0.166s infinite; display: none;
-        }
-        .pulse-on { display: block; }
+        .nerve-btn.active { background: var(--gold-leaf); color: #000; border-color: var(--gold-leaf); }
     </style>
 </head>
 <body x-data="archiveApp()" :class="{'veiled': isVeiled}" @keydown.escape.window="isVeiled = !isVeiled">
 
-    <div class="pulse" :class="{'pulse-on': nerve === 'Static'}"></div>
+    <div class="somatic-pulse" :class="{'pulse-active': nerve === 'Static'}"></div>
 
     <nav class="nav-header">
         <div class="kore-title">Project Kore // Archive</div>
         <div>
             <button class="nerve-btn" @click="nerve = 'Grounded'" :class="nerve === 'Grounded' ? 'active' : ''">Grounded</button>
             <button class="nerve-btn" @click="nerve = 'Static'" :class="nerve === 'Static' ? 'active' : ''">Static</button>
-            <button class="nerve-btn" @click="isVeiled = !isVeiled">Cloak</button>
+            <button class="nerve-btn" @click="isVeiled = !isVeiled" style="border-color: #634087; color: #d8b4e2;">Cloak (Esc)</button>
         </div>
     </nav>
 
     <main class="workspace">
         <section class="desk-card">
-            <input type="text" class="entry-title" x-model="current.title" placeholder="Untitled Scroll...">
-            <textarea class="entry-body" x-model="current.content" placeholder="Transmute the siege into lore..."></textarea>
-            <button class="btn" @click="save()">Commit to History</button>
-        </section>
-
-        <aside class="sidebar">
-            <div class="section-label">Vaulted Lore</div>
-            <div style="overflow-y: auto; flex: 1;">
-                <template x-for="entry in entries" :key="entry.id">
-                    <div style="padding: 15px 0; border-bottom: 1px solid rgba(197,160,89,0.1); cursor: pointer;" @click="current = {...entry}">
-                        <div style="font-size: 0.6rem; color: var(--gold-leaf); opacity: 0.5;" x-text="entry.date"></div>
-                        <div style="font-size: 1.1rem; margin-top: 5px; font-style: italic;" x-text="entry.title || 'Unknown Scroll'"></div>
-                    </div>
-                </template>
-            </div>
-        </aside>
-    </main>
-
-    <script>
-        function archiveApp() {
-            return {
-                isVeiled: false,
-                nerve: 'Grounded',
-                entries: JSON.parse(localStorage.getItem('KORE_LORE')) || [],
-                current: { id: null, title: '', content: '' },
-                save() {
-                    if(!this.current.title && !this.current.content) return;
-                    const date = new Date().toLocaleDateString();
-                    if(this.current.id) {
-                        const i = this.entries.findIndex(e => e.id === this.current.id);
-                        this.entries[i] = { ...this.current, date };
-                    } else {
-                        this.entries.push({ ...this.current, id: Date.now(), date });
-                    }
-                    localStorage.setItem('KORE_LORE', JSON.stringify(this.entries));
-                    alert("Lore Anchored.");
-                }
-            }
-        }
-    </script>
-</body>
-</html>
+            <div class="filigree top-left"></div>
+            <div class="filigree bottom-right"></div>
+            
+            <input type="text" class="entry-title" x-model="current.title" placeholder="A History of the Forge...">
+            <textarea class="entry-body" x-model="current.content" placeholder="Document the lore, Architect..."></textarea>
