@@ -52,7 +52,6 @@ Project KORE utilizes local-first hashing for **User Salt** generation.
 * **Total Views:** 1,332 (Verified)
 * **Institutional Clones:** 2,147 (Verified Forensic Receipt)
 * **Unique Cloners:** 803 (Industrial Handshakes)
-* **Handshake Event:** Manual engineering audit (33 minutes) by the **TMNA-Cluster** during the 4.20 Failsafe.
 
 **The Bridge is Hardened. The Shield is Blind. The Sovereignty is Final.**
 
