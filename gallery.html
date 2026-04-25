@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT KORE // PAX GALLERY SYNC</title>
+    <style>
+        :root {
+            --gold-leaf: #D4AF37;
+            --pax-amber: rgba(229, 149, 0, 0.4);
+            --glass: rgba(10, 10, 12, 0.85);
+            --tempo: 4s; /* THE PAX STANDARD */
+        }
 
+        body, html {
+            margin: 0; padding: 0;
+            background: #050508;
+            overflow: hidden;
+            font-family: 'Times New Roman', serif;
+            height: 100%;
+        }
+
+        /* --- THE HEARTH (Layer 1 - RECALIBRATED) --- */
+        #vault-stage {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('vault_8k.webp') no-repeat center center;
+            background-size: cover;
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center;
+            z-index: 1;
+            transform: scale(1.15); /* PAX START */
+            animation: imageBreathe var(--tempo) infinite alternate ease-in-out;
+            transition: filter 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        @keyframes imageBreathe { 
+            0% { transform: scale(1.15); } 
+            100% { transform: scale(1.2); } 
+        }
+
+        /* --- SOMATIC HIJACK (Layer 2 - THE PAX GLOW) --- */
+        #glow-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--pax-amber);
+            z-index: 500;
+            pointer-events: none;
+            opacity: 0.15; /* PAX EXHALE */
+            animation: somaticBreathe var(--tempo) infinite alternate ease-in-out;
+            will-change: opacity;
+            
+            /* S9 LUXURY FILTER */
+            backdrop-filter: sepia(10%) brightness(0.95); 
+            -webkit-backdrop-filter: sepia(10%) brightness(0.95);
+        }
+
+        @keyframes somaticBreathe { 
+            0% { opacity: 0.15; }  
+            100% { opacity: 0.8; } 
+        }
+
+        /* --- THE COMMAND INTERFACE (GLASS & GOLD) --- */
+        .glass-bar {
+            position: absolute; bottom: 50px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 15px 35px;
+            border-radius: 50px;
+            display: flex; gap: 20px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+        }
+
+        .jolt-btn {
+            background: none; border: 1px solid var(--gold-leaf);
+            color: var(--gold-leaf); padding: 10px 22px;
+            cursor: pointer; letter-spacing: 3px;
+            transition: 0.4s; border-radius: 4px;
+            font-size: 0.75rem; text-transform: uppercase;
+        }
+
+        .jolt-btn:hover { background: var(--gold-leaf); color: #000; }
+
+        /* --- THE POLAROIDS (THE TRENCHES) --- */
+        .gallery-container { display: flex; gap: 20px; z-index: 10; perspective: 1200px; }
+        .polaroid {
+            background: #E8DCC4; padding: 10px 10px 45px 10px;
+            box-shadow: 0 35px 70px rgba(0,0,0,0.9);
+            transform: rotate(-2deg); transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.15) translateZ(100px); z-index: 600; }
+        .polaroid img { width: 180px; height: 180px; object-fit: cover; }
+
+        /* --- AESTHETIC ARRAY JOLTS (Visibility Refined) --- */
+        .noir { filter: contrast(1.2) brightness(1.0) sepia(0.1); }
+        .lunar { filter: contrast(0.95) brightness(1.15) hue-rotate(180deg) saturate(0.4); }
+        .vellum { filter: sepia(0.5) brightness(1.05) contrast(1.1); }
+        .amethyst { filter: hue-rotate(270deg) brightness(0.95) saturate(1.2); }
+    </style>
+</head>
+<body>
+
+    <div id="glow-layer"></div>
+
+    <div id="vault-stage" class="noir">
+        <div class="gallery-container">
+            <div class="polaroid"><img src="atrium_8k.webp"></div>
+            <div class="polaroid"><img src="command_8k.webp"></div>
+            <div class="polaroid"><img src="gallery_8k.webp"></div>
+            <div class="polaroid"><img src="logistics_8k.webp"></div>
+            <div class="polaroid"><img src="resonance_8k.webp"></div>
+        </div>
+
+        <div class="glass-bar">
+            <button class="jolt-btn" onclick="systemJolt('noir')">[A] NOIR</button>
+            <button class="jolt-btn" onclick="systemJolt('lunar')">[B] LUNAR</button>
+            <button class="jolt-btn" onclick="systemJolt('vellum')">[C] VELLUM</button>
+            <button class="jolt-btn" onclick="systemJolt('amethyst')">[D] AMETHYST</button>
+            <button class="jolt-btn" onclick="toggleEngine()" id="engine-btn">ENGINE: OFF</button>
+        </div>
+    </div>
+
+    <audio id="teacup-audio" src="teacup.mp3" loop></audio>
+
+    <script>
+        let engineActive = false;
+        let hapticPulse;
+        const audio = document.getElementById('teacup-audio');
+
+        function systemJolt(profile) {
+            document.getElementById('vault-stage').className = profile;
+            if (navigator.vibrate) navigator.vibrate([30, 40]);
+        }
+
+        function toggleEngine() {
+            const btn = document.getElementById('engine-btn');
+            if (!engineActive) {
+                engineActive = true;
+                btn.innerText = "ENGINE: ON";
+                audio.play().catch(n => console.log("Handshake Required"));
+                startPaxSync();
+            } else {
+                engineActive = false;
+                btn.innerText = "ENGINE: OFF";
+                audio.pause();
+                clearInterval(hapticPulse);
+            }
+        }
+
+        function startPaxSync() {
+            const pulse = () => {
+                if (navigator.vibrate && engineActive) {
+                    // THE HEARTBEAT: Aligned with the PAX Inhale
+                    navigator.vibrate([40, 60, 40]);
+                }
+            };
+            pulse(); 
+            hapticPulse = setInterval(pulse, 4000); 
+        }
+    </script>
+</body>
+</html>
