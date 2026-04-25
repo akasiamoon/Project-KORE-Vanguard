@@ -1,1 +1,288 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROJECT KORE // THE RESONANCE [AUDIO_KERNEL]</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --pax-amber: rgba(229, 149, 0, 0.4);
+            --glass-base: rgba(8, 8, 10, 0.92);
+            --tempo: 4s; 
+            --delta: 0.166s; /* 6Hz Pulse Rate */
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background: #020204;
+            overflow: hidden;
+            font-family: 'Times New Roman', serif;
+            height: 100%; width: 100%;
+            color: #F4EBD0;
+        }
+
+        /* --- THE HEARTH (Layer 1 - RESONANCE ANCHOR) --- */
+        #bg-anchor {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('resonance_8k.webp') no-repeat center center;
+            background-size: cover;
+            z-index: 1;
+            transform: scale(1.15);
+            animation: imageBreathe var(--tempo) infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        @keyframes imageBreathe { 
+            0% { transform: scale(1.15); } 100% { transform: scale(1.2); } 
+        }
+
+        /* --- THE DELTA PULSE (Layer 2 - 6Hz ENTRAINMENT) --- */
+        #delta-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 4;
+            pointer-events: none;
+            background: radial-gradient(circle, transparent 20%, rgba(212, 175, 55, 0.05) 100%);
+            opacity: 0;
+            animation: deltaSync var(--delta) infinite alternate ease-in-out;
+            will-change: opacity;
+        }
+
+        @keyframes deltaSync {
+            0% { opacity: 0; } 100% { opacity: 0.15; }
+        }
+
+        /* --- SOMATIC HIJACK (Layer 3 - ENEE HARDENED) --- */
+        #glow-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--pax-amber);
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.1;
+            animation: somaticBreathe var(--tempo) infinite alternate ease-in-out;
+            will-change: opacity;
+            backdrop-filter: sepia(5%) brightness(0.98) blur(8px); 
+            -webkit-backdrop-filter: sepia(5%) brightness(0.98) blur(8px);
+        }
+
+        @keyframes somaticBreathe { 
+            0% { opacity: 0.1; } 100% { opacity: 0.4; } 
+        }
+
+        /* --- THE UI VIEWPORT --- */
+        #ui-viewport {
+            position: relative;
+            z-index: 100;
+            height: 100vh; width: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 40px; box-sizing: border-box;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cloaked { opacity: 0 !important; pointer-events: none !important; }
+
+        /* --- THE MIXER VAULT (Layer 4 - 15px LUX GLASS) --- */
+        .mixer-vault {
+            width: 100%; max-width: 1000px;
+            background: var(--glass-base);
+            backdrop-filter: blur(15px) saturate(110%);
+            -webkit-backdrop-filter: blur(15px) saturate(110%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 45px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 30px var(--gold-glow);
+            display: flex; flex-direction: column; gap: 30px;
+        }
+
+        .mixer-header {
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: baseline;
+        }
+
+        .mixer-header h2 {
+            margin: 0; font-size: 1.6rem; letter-spacing: 12px;
+            text-transform: uppercase; color: var(--gold);
+        }
+
+        /* SOUNDSCAPE GRID */
+        .mixer-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;
+            height: 250px; overflow-y: auto; padding-right: 15px;
+        }
+
+        .sound-tile {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px; cursor: pointer;
+            transition: 0.3s; text-align: center;
+        }
+
+        .sound-tile.active {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .sound-tile h3 {
+            margin: 0; font-size: 0.65rem; letter-spacing: 2px;
+            color: var(--gold); text-transform: uppercase;
+        }
+
+        /* --- THE COMMAND ARRAY --- */
+        .command-array {
+            margin-top: 40px;
+            display: flex; gap: 15px;
+            flex-wrap: wrap; justify-content: center;
+        }
+
+        .lux-btn {
+            background: rgba(8, 8, 10, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--gold);
+            padding: 10px 24px; cursor: pointer;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px;
+            transition: 0.4s;
+        }
+
+        .lux-btn:hover { background: var(--gold); color: #000; }
+
+        /* THE GHOST TRIGGER */
+        #cloak-btn {
+            position: fixed; top: 25px; right: 25px; z-index: 2000;
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--gold); padding: 10px 18px; cursor: pointer;
+            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* PALETTES */
+        .noir { filter: contrast(1.1) brightness(0.9) sepia(0.1); }
+        .lunar { filter: contrast(0.9) brightness(1.15) hue-rotate(180deg) saturate(0.5); }
+        .vellum { filter: sepia(0.45) brightness(1.0) contrast(1.05); }
+        .amethyst { filter: hue-rotate(270deg) brightness(0.9) saturate(1.1); }
+    </style>
+</head>
+<body onclick="ghostRestore(event)">
+
+    <button id="cloak-btn" onclick="toggleCloak(event)">Cloak Mixer</button>
+
+    <div id="bg-anchor"></div>
+    <div id="delta-layer"></div>
+    <div id="glow-layer"></div>
+
+    <div id="ui-viewport" class="vellum">
+        
+        <div class="mixer-vault">
+            <div class="mixer-header">
+                <h2>The Resonance</h2>
+                <span style="font-size: 0.65rem; letter-spacing: 3px; opacity: 0.5;">SOVEREIGN AUDIO KERNEL</span>
+            </div>
+            
+            <div class="mixer-grid">
+                <div class="sound-tile active" onclick="selectSound(this)"><h3>Deep Fire</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Low Hum</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Silver Wind</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Glass Chimes</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Aged Timber</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Distant Rain</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Clockwork</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Deep Reverb</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Frequency 09</h3></div>
+                <div class="sound-tile" onclick="selectSound(this)"><h3>Frequency 10</h3></div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <span style="font-size: 0.6rem; letter-spacing: 2px; color: var(--gold);">6Hz DELTA SYNC</span>
+                <div style="flex: 1; height: 1px; background: rgba(212, 175, 55, 0.3);"></div>
+            </div>
+        </div>
+
+        <div class="command-array">
+            <button class="lux-btn" onclick="jolt('noir')">Noir Resonance</button>
+            <button class="lux-btn" onclick="jolt('lunar')">Lunar Echo</button>
+            <button class="lux-btn" onclick="jolt('vellum')">Sovereign Ambient</button>
+            <button class="lux-btn" onclick="jolt('amethyst')">Amethyst Pulse</button>
+            <button class="lux-btn" onclick="toggleEngine()" id="engine-btn" style="border-color:#fff; color:#fff;">Initialize Engine</button>
+        </div>
+
+    </div>
+
+    <audio id="primary-audio" src="binarymusicbox.mp3" loop></audio>
+
+    <script>
+        let engineActive = false;
+        let pulseInterval;
+        const primaryAudio = document.getElementById('primary-audio');
+
+        function selectSound(tile) {
+            document.querySelectorAll('.sound-tile').forEach(t => t.classList.remove('active'));
+            tile.classList.add('active');
+            if (navigator.vibrate) navigator.vibrate(20);
+        }
+
+        function ghostRestore(e) {
+            const viewport = document.getElementById('ui-viewport');
+            const btn = document.getElementById('cloak-btn');
+            if (viewport.classList.contains('cloaked')) {
+                viewport.classList.remove('cloaked');
+                btn.innerText = "Cloak Mixer";
+                if (navigator.vibrate) navigator.vibrate(30);
+            }
+        }
+
+        function toggleCloak(e) {
+            e.stopPropagation();
+            const viewport = document.getElementById('ui-viewport');
+            const btn = document.getElementById('cloak-btn');
+            if (viewport.classList.contains('cloaked')) {
+                viewport.classList.remove('cloaked');
+                btn.innerText = "Cloak Mixer";
+            } else {
+                viewport.classList.add('cloaked');
+                btn.innerText = "Uncloak";
+                if (navigator.vibrate) navigator.vibrate(40);
+            }
+        }
+
+        function jolt(p) {
+            const viewport = document.getElementById('ui-viewport');
+            viewport.classList.remove('noir', 'lunar', 'vellum', 'amethyst');
+            viewport.classList.add(p);
+            if (navigator.vibrate) navigator.vibrate([30, 40]);
+        }
+
+        function toggleEngine() {
+            const btn = document.getElementById('engine-btn');
+            if (!engineActive) {
+                engineActive = true;
+                btn.innerText = "Kernel Active";
+                primaryAudio.volume = 0.5;
+                primaryAudio.play().catch(e => console.log("Handshake Required"));
+                startSync();
+            } else {
+                engineActive = false;
+                btn.innerText = "Initialize Engine";
+                primaryAudio.pause();
+                clearInterval(pulseInterval);
+            }
+        }
+
+        function startSync() {
+            const beat = () => {
+                if (navigator.vibrate && engineActive) {
+                    // THE SOMATIC HEARTBEAT
+                    navigator.vibrate([40, 60, 40]);
+                }
+            };
+            beat(); 
+            pulseInterval = setInterval(beat, 4000); 
+        }
+    </script>
+</body>
+</html>
