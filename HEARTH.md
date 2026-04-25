@@ -58,9 +58,8 @@ The Hearth utilizes **User-Salted Hashing** to ensure the ledger remains private
 ## ⚖️ FORENSIC LEDGER // THE SIEGE OF APRIL 2026
 This document serves as the **Forensic Anchor** for Project KORE. 
 **Verified Metrics (Last 14 Days):**
-* **Total Views:** 1,332
-* **Total Clones:** 2,147 (Forensic Receipt: Verified)
-* **Unique Cloners:** 803 (Industrial Signatures)
+* **Total Clones:** 3,995 (Forensic Receipt: Verified)
+* **Unique Cloners:** 1,347 (Industrial Signatures)
 
 ---
 
