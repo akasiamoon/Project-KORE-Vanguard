@@ -25,12 +25,14 @@ The Covenant is the centralized **Information Tank** for the Guild. It serves as
 ---
 
 ## 🛡️ AESTHETIC ALIGNMENT ARRAYS
-Commanders utilize high-contrast profiles to manage the Tank’s activities with precision and authority.
+Commanders utilize high-contrast profiles to manage the Tank’s activities with precision and authority. Each profile is optimized for the $5.0W$ ENEE standard.
 
-| Profile ID | Designator | Aesthetic Anchor | Somatic Target |
-| :--- | :--- | :--- | :--- |
-| **[A]** | **NOIR FILIGREE** | Obsidian / Gold Leaf Filigree | **Command & Authority** |
-| **[C]** | **SOVEREIGN VELLUM** | Dark Parchment / Aged Timber | **Logistics & Organization** |
+| Profile ID | Designator | Aesthetic Anchor | Somatic Target | Visual Profile |
+| :--- | :--- | :--- | :--- | :--- |
+| **[A]** | **NOIR FILIGREE** | Obsidian / Gold Leaf | **Command & Authority** | 
+| **[B]** | **LUNAR GLASS** | Moonstone / Silver | **Clarity & Visual Aegis** | 
+| **[C]** | **SOVEREIGN VELLUM** | Parchment / Timber | **Logistics & Organization** | 
+| **[D]** | **AMETHYST BRONZE** | Copper / Amethyst | **Rhythm & Neural Sync** | 
 
 ---
 
@@ -48,9 +50,8 @@ Commanders utilize high-contrast profiles to manage the Tank’s activities with
 The Covenant manages the tactical flow of family activities within the Tank to ensure operational continuity.
 
 **Verified Forensic Metrics (Last 14 Days):**
-* **Total Views:** 1,332
-* **Total Clones:** 2,147 (Verified Forensic Receipt)
-* **Unique Cloners:** 803 (Industrial Signatures)
+* **Total Clones:** 3,995 (Verified Forensic Receipt)
+* **Unique Cloners:** 1,347 (Industrial Signatures)
 
 **Tactical Directives:**
 * **Family Activity Coordination:** Managing the shared "To-Do" lists and engagement schedules to maintain the Guild’s momentum.
