@@ -6,209 +6,176 @@
     <title>PROJECT KORE // THE RESONANCE</title>
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.2);
-            --pax-amber: rgba(229, 149, 0, 0.3);
-            --glass: rgba(6, 6, 8, 0.96);
-            --tempo: 4s;
+            /* UNIVERSAL PALETTE MANIFEST */
+            --primary: #D4AF37; 
+            --primary-glow: rgba(212, 175, 55, 0.35);
+            --hijack-glow: rgba(229, 149, 0, 0.6);
+            --glass: rgba(6, 6, 8, 0.98);
+            --unison-tempo: 8s;
+            --unison-ease: cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
 
+        .noir-mode { --primary: #D4AF37; --hijack-glow: rgba(229, 149, 0, 0.6); --glass: rgba(6, 6, 8, 0.98); }
+        .lunar-mode { --primary: #A5F2F3; --hijack-glow: rgba(0, 80, 150, 0.5); --glass: rgba(4, 8, 12, 0.98); }
+        .vellum-mode { --primary: #C2B280; --hijack-glow: rgba(101, 67, 33, 0.5); --glass: rgba(12, 10, 8, 0.98); }
+        .amethyst-mode { --primary: #9966CC; --hijack-glow: rgba(75, 0, 130, 0.5); --glass: rgba(10, 6, 12, 0.98); }
+
         body, html {
-            margin: 0; padding: 0;
-            background: #000;
-            overflow: hidden;
-            font-family: 'Times New Roman', serif;
-            height: 100%; width: 100%;
-            color: #F4EBD0;
+            margin: 0; padding: 0; background: #000;
+            overflow: hidden; font-family: 'Times New Roman', serif;
+            height: 100%; width: 100%; color: #F4EBD0;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- LAYER 1: THE HEARTH (8K BREATHE) --- */
+        /* --- LAYER 1: THE HEARTH (COMPOSITOR ONLY) --- */
         #bg-anchor {
-            position: fixed;
-            top: -5%; left: -5%; right: -5%; bottom: -5%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #020204 url('resonance_8k.webp') no-repeat center center;
-            background-size: cover;
-            z-index: 1;
-            animation: imageBreathe var(--tempo) infinite alternate ease-in-out;
+            background-size: cover; z-index: 1;
+            /* TRANSFORM-ONLY: This triggers the hardware backing store */
+            animation: flatlineBreath var(--unison-tempo) infinite alternate var(--unison-ease);
             will-change: transform;
+            transform: translateZ(0);
         }
-        @keyframes imageBreathe { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+        @keyframes flatlineBreath { 0% { transform: scale(1) translateZ(0); } 100% { transform: scale(1.08) translateZ(0); } }
 
-        /* --- LAYER 2: THE DELTA THRUM (LIQUID PULSE) --- */
-        #delta-layer {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 4; pointer-events: none;
-            background: radial-gradient(circle at center, transparent 20%, rgba(212, 175, 55, 0.08) 100%);
-            animation: deltaThrum 3s infinite alternate cubic-bezier(0.445, 0.05, 0.55, 0.95);
-            will-change: opacity;
-        }
-        @keyframes deltaThrum { 0% { opacity: 0.02; } 100% { opacity: 0.12; } }
-
-        /* --- LAYER 3: SOMATIC GLOW (AMBER BREATHE) --- */
+        /* --- LAYER 2: SOMATIC HIJACK (COMPOSITOR ONLY) --- */
         #glow-layer {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--pax-amber);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 25%, var(--hijack-glow) 130%);
             z-index: 5; pointer-events: none;
-            animation: somaticBreathe var(--tempo) infinite alternate cubic-bezier(0.37, 0, 0.63, 1);
+            /* OPACITY-ONLY: Handled entirely by the compositor thread */
+            animation: flatlineGlow var(--unison-tempo) infinite alternate var(--unison-ease);
             will-change: opacity;
-            opacity: 0.05;
+            opacity: 0.1;
+            transition: background 1.5s var(--unison-ease);
         }
-        @keyframes somaticBreathe { 0% { opacity: 0.05; transform: scale(1); } 100% { opacity: 0.15; transform: scale(1.05); } }
+        @keyframes flatlineGlow { 0% { opacity: 0.1; } 100% { opacity: 0.6; } }
 
-        /* --- THE UI VIEWPORT --- */
+        /* --- UI VIEWPORT --- */
         #ui-viewport {
-            position: relative;
-            z-index: 100;
+            position: relative; z-index: 100;
             height: 100vh; width: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px; box-sizing: border-box;
+            transition: opacity 1.5s var(--unison-ease);
         }
         .cloaked { opacity: 0 !important; pointer-events: none !important; }
 
         /* --- THE MIXER VAULT --- */
         .mixer-vault {
-            width: 90%; max-width: 950px;
+            width: 95%; max-width: 950px; height: 80vh;
             background: var(--glass);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 45px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
-            display: flex; flex-direction: column; gap: 30px;
+            border: 2px solid var(--primary);
+            padding: 45px; box-sizing: border-box;
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 100px #000, inset 0 0 40px var(--primary-glow);
+            transition: all 1s var(--unison-ease);
         }
 
         .mixer-header {
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 20px; display: flex; justify-content: space-between; align-items: baseline;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px; margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center;
         }
         .mixer-header h2 { 
-            margin: 0; font-size: 1.4rem; letter-spacing: 14px; 
-            color: var(--gold); text-transform: uppercase; font-weight: normal;
+            margin: 0; font-size: 1.4rem; letter-spacing: 16px; 
+            text-transform: uppercase; font-weight: normal; color: var(--primary);
+            text-shadow: 0 0 15px var(--primary-glow);
+            transition: color 1s;
         }
 
-        /* --- GRID & PRECISION SCROLLBAR --- */
         .mixer-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 15px;
-            max-height: 380px; overflow-y: auto; padding-right: 15px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;
+            overflow-y: auto; flex: 1; padding-right: 15px;
         }
-        .mixer-grid::-webkit-scrollbar { width: 2px; }
-        .mixer-grid::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); }
-        .mixer-grid::-webkit-scrollbar-thumb { background: var(--gold); }
+        .mixer-grid::-webkit-scrollbar { display: none; }
 
         .sound-card {
-            background: rgba(212, 175, 55, 0.02); 
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 24px; text-align: center; 
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 22px; text-align: center; transition: 0.4s;
         }
-        .sound-card.active { 
-            background: var(--gold-glow); 
-            border-color: var(--gold); 
-            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.1); 
+        .sound-card.active { background: var(--primary-glow); border-color: var(--primary); }
+
+        .sound-btn {
+            background: none; border: none; color: var(--primary);
+            font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer; margin-bottom: 15px; font-family: inherit; width: 100%;
+            transition: color 1s;
         }
 
-        .sound-btn { 
-            background: none; border: none; color: var(--gold); 
-            font-family: inherit; font-size: 0.75rem; letter-spacing: 3px; 
-            text-transform: uppercase; cursor: pointer; margin-bottom: 15px;
-            opacity: 0.7; transition: 0.3s;
+        .volume-rail {
+            -webkit-appearance: none; width: 100%; height: 1px;
+            background: rgba(255, 255, 255, 0.1); outline: none;
         }
-        .sound-card.active .sound-btn { opacity: 1; text-shadow: 0 0 8px var(--gold); }
-
-        /* SOVEREIGN VOLUME RAIL */
-        .volume-rail { 
-            -webkit-appearance: none; width: 100%; height: 1px; 
-            background: rgba(212, 175, 55, 0.2); outline: none; 
-        }
-        .volume-rail::-webkit-slider-thumb { 
-            -webkit-appearance: none; width: 6px; height: 6px; 
-            background: var(--gold); border-radius: 0; cursor: pointer; 
+        .volume-rail::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 8px; height: 8px; 
+            background: var(--primary); cursor: pointer; border-radius: 0;
+            transition: background 1s;
         }
 
         /* --- COMMAND ARRAY --- */
-        .command-array { margin-top: 40px; display: flex; gap: 12px; justify-content: center; }
+        .command-array {
+            margin-top: 35px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+        }
         .lux-btn {
-            background: #000; border: 1px solid rgba(212, 175, 55, 0.5); color: var(--gold);
-            padding: 12px 28px; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; 
-            letter-spacing: 4px; transition: 0.4s;
+            background: rgba(0,0,0,0.6); border: 1px solid var(--primary);
+            color: var(--primary); padding: 12px 28px; cursor: pointer;
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 4px;
+            transition: all 0.4s;
         }
-        .lux-btn:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .lux-btn:hover { background: var(--primary-glow); }
 
-        /* GHOST TRIGGER */
         #cloak-btn {
-            position: fixed; top: 30px; right: 30px; z-index: 2000;
-            background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--gold); padding: 10px 20px; cursor: pointer; 
-            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 4px; 
+            position: fixed; top: 35px; right: 35px; z-index: 2000;
+            background: none; border: 1px solid var(--primary);
+            color: var(--primary); padding: 10px 22px; cursor: pointer; 
+            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 5px;
+            backdrop-filter: blur(5px); transition: all 1s;
         }
-
-        /* PALETTES */
-        .noir { filter: contrast(1.1) brightness(0.8) grayscale(1); }
-        .lunar { filter: hue-rotate(185deg) saturate(0.4) brightness(1.1); }
-        .vellum { filter: sepia(0.35) contrast(1.05); }
-        .amethyst { filter: hue-rotate(285deg) saturate(1.2) brightness(0.8); }
     </style>
 </head>
-<body onclick="ghostRestore(event)">
+<body id="master-body" onclick="ghostRestore()">
 
     <button id="cloak-btn" onclick="toggleCloak(event)">CLOAK SYSTEM</button>
 
     <div id="bg-anchor"></div>
-    <div id="delta-layer"></div>
     <div id="glow-layer"></div>
 
-    <div id="ui-viewport" class="vellum">
+    <div id="ui-viewport">
         <div class="mixer-vault">
             <div class="mixer-header">
                 <h2>The Resonance</h2>
-                <span style="font-size: 0.55rem; opacity: 0.4; letter-spacing: 4px;">ENEE STANDALONE KERNEL</span>
+                <span style="font-size: 0.55rem; opacity: 0.4; letter-spacing: 6px;">SOVEREIGN MIXER</span>
             </div>
             
             <div id="mixer-grid" class="mixer-grid"></div>
 
-            <div style="display: flex; gap: 20px; align-items: center;">
-                <span style="font-size: 0.5rem; letter-spacing: 3px; color: var(--gold); opacity: 0.6;">SOVEREIGN MIXER ACTIVE</span>
-                <div style="flex: 1; height: 1px; background: rgba(212, 175, 55, 0.15);"></div>
+            <div class="command-array">
+                <button class="lux-btn" onclick="jolt('noir')">Noir</button>
+                <button class="lux-btn" onclick="jolt('lunar')">Lunar</button>
+                <button class="lux-btn" onclick="jolt('vellum')">Vellum</button>
+                <button class="lux-btn" onclick="jolt('amethyst')">Amethyst</button>
+                <button class="lux-btn" onclick="stopAll()" style="border-color: rgba(255,68,68,0.5); color: rgba(255,68,68,0.8);">Mute All</button>
             </div>
-        </div>
-
-        <div class="command-array">
-            <button class="lux-btn" onclick="jolt('noir')">Noir</button>
-            <button class="lux-btn" onclick="jolt('lunar')">Lunar</button>
-            <button class="lux-btn" onclick="jolt('vellum')">Vellum</button>
-            <button class="lux-btn" onclick="jolt('amethyst')">Amethyst</button>
-            <button class="lux-btn" onclick="stopAll()" style="border-color:rgba(255,68,68,0.5); color:rgba(255,68,68,0.8);">Mute All</button>
         </div>
     </div>
 
     <script>
         let activeSoundscapes = {};
-
         const soundLibrary = [
-            { id: "rain", name: "GENTLE RAIN", url: "rain.mp3" },
-            { id: "thunder", name: "THUNDERSTORM", url: "thunder.mp3" },
-            { id: "winterwind", name: "WINTER WIND", url: "winterwind.mp3" },
-            { id: "waves", name: "OCEAN WAVES", url: "waves.mp3" },
-            { id: "owls", name: "MIDNIGHT OWLS", url: "owls.mp3" },
-            { id: "raven", name: "RAVEN CALLS", url: "raven.mp3" },
-            { id: "frogs", name: "SWAMP FROGS", url: "frogs.mp3" },
-            { id: "crickets", name: "NIGHT CRICKETS", url: "crickets.mp3" },
-            { id: "fire", name: "HEARTH FIRE", url: "fire.mp3" },
-            { id: "simmering", name: "SIMMERING POT", url: "simmeringpot.mp3" },
-            { id: "teacup", name: "TEACUP CLINKS", url: "teacup.mp3" },
-            { id: "clock", name: "TICKING CLOCK", url: "clock.mp3" },
-            { id: "cat", name: "PURRING CAT", url: "cat.mp3" },
-            { id: "windchimes", name: "WIND CHIMES", url: "windchimes.mp3" },
-            { id: "musicbox1", name: "MUSIC BOX I", url: "musicbox1.mp3" },
-            { id: "musicbox2", name: "MUSIC BOX II", url: "musicbox2.mp3" },
-            { id: "musicbox3", name: "MUSIC BOX III", url: "musicbox3.mp3" },
-            { id: "xmas1", name: "YULE BOX I", url: "xmasmusicbox1.mp3" },
-            { id: "xmas2", name: "YULE BOX II", url: "xmasmusicbox2.mp3" },
-            { id: "xmas3", name: "YULE BOX III", url: "xmasmusicbox3.mp3" },
-            { id: "darkmusic", name: "DARK ATMOSPHERE", url: "darkmusic1.mp3" },
-            { id: "binary", name: "BINARY BOX", url: "binarymusicbox.mp3" }
+            { id: "rain", name: "RAIN", url: "rain.mp3" }, { id: "thunder", name: "THUNDER", url: "thunder.mp3" },
+            { id: "winterwind", name: "WIND", url: "winterwind.mp3" }, { id: "waves", name: "WAVES", url: "waves.mp3" },
+            { id: "owls", name: "OWLS", url: "owls.mp3" }, { id: "raven", name: "RAVEN", url: "raven.mp3" },
+            { id: "frogs", name: "FROGS", url: "frogs.mp3" }, { id: "crickets", name: "CRICKETS", url: "crickets.mp3" },
+            { id: "fire", name: "FIRE", url: "fire.mp3" }, { id: "simmering", name: "POT", url: "simmeringpot.mp3" },
+            { id: "teacup", name: "TEA", url: "teacup.mp3" }, { id: "clock", name: "CLOCK", url: "clock.mp3" },
+            { id: "cat", name: "CAT", url: "cat.mp3" }, { id: "windchimes", name: "CHIMES", url: "windchimes.mp3" },
+            { id: "musicbox1", name: "BOX I", url: "musicbox1.mp3" }, { id: "musicbox2", name: "BOX II", url: "musicbox2.mp3" },
+            { id: "musicbox3", name: "BOX III", url: "musicbox3.mp3" }, { id: "xmas1", name: "YULE I", url: "xmasmusicbox1.mp3" },
+            { id: "xmas2", name: "YULE II", url: "xmasmusicbox2.mp3" }, { id: "xmas3", name: "YULE III", url: "xmasmusicbox3.mp3" },
+            { id: "darkmusic", name: "DARK", url: "darkmusic1.mp3" }, { id: "binary", name: "BINARY", url: "binarymusicbox.mp3" }
         ];
 
         function initGrid() {
@@ -216,64 +183,40 @@
             grid.innerHTML = soundLibrary.map(track => `
                 <div class="sound-card" id="card-${track.id}">
                     <button class="sound-btn" onclick="toggleTrack('${track.id}', '${track.url}')">${track.name}</button>
-                    <input type="range" class="volume-rail" min="0" max="1" step="0.05" value="0.5" 
-                           oninput="changeVolume('${track.id}', this.value)">
-                </div>
-            `).join('');
+                    <input type="range" class="volume-rail" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume('${track.id}', this.value)">
+                </div>`).join('');
         }
 
         window.toggleTrack = function(id, url) {
             const card = document.getElementById(`card-${id}`);
             if (activeSoundscapes[id]) {
-                activeSoundscapes[id].pause();
-                delete activeSoundscapes[id];
-                card.classList.remove('active');
+                activeSoundscapes[id].pause(); delete activeSoundscapes[id]; card.classList.remove('active');
             } else {
-                const audio = new Audio(url);
-                audio.loop = true;
-                audio.volume = 0.5;
-                audio.play().then(() => {
-                    activeSoundscapes[id] = audio;
-                    card.classList.add('active');
-                    if (navigator.vibrate) navigator.vibrate(20);
-                }).catch(e => console.log("Handshake required."));
+                const audio = new Audio(url); audio.loop = true; audio.volume = 0.5;
+                audio.play().then(() => { activeSoundscapes[id] = audio; card.classList.add('active'); if (navigator.vibrate) navigator.vibrate(15); });
             }
         };
 
-        window.changeVolume = function(id, vol) {
-            if (activeSoundscapes[id]) activeSoundscapes[id].volume = vol;
-        };
-
+        window.changeVolume = function(id, vol) { if (activeSoundscapes[id]) activeSoundscapes[id].volume = vol; };
         window.stopAll = function() {
-            Object.keys(activeSoundscapes).forEach(id => {
-                activeSoundscapes[id].pause();
-                const card = document.getElementById(`card-${id}`);
-                if (card) card.classList.remove('active');
-            });
+            Object.keys(activeSoundscapes).forEach(id => { activeSoundscapes[id].pause(); const card = document.getElementById(`card-${id}`); if (card) card.classList.remove('active'); });
             activeSoundscapes = {};
-            if (navigator.vibrate) navigator.vibrate([40, 40]);
         };
 
         function toggleCloak(e) {
-            e.stopPropagation();
-            const viewport = document.getElementById('ui-viewport');
-            const btn = document.getElementById('cloak-btn');
-            const isCloaked = viewport.classList.toggle('cloaked');
-            btn.innerText = isCloaked ? "RESTORE SYSTEM" : "CLOAK SYSTEM";
+            e.stopPropagation(); const viewport = document.getElementById('ui-viewport'); const isCloaked = viewport.classList.toggle('cloaked');
+            document.getElementById('cloak-btn').innerText = isCloaked ? "RESTORE SYSTEM" : "CLOAK SYSTEM";
         }
 
         function ghostRestore() {
-            const viewport = document.getElementById('ui-viewport');
-            if (viewport.classList.contains('cloaked')) {
-                viewport.classList.remove('cloaked');
-                document.getElementById('cloak-btn').innerText = "CLOAK SYSTEM";
-            }
+            const viewport = document.getElementById('ui-viewport'); if (viewport.classList.contains('cloaked')) { viewport.classList.remove('cloaked'); document.getElementById('cloak-btn').innerText = "CLOAK SYSTEM"; }
         }
 
         function jolt(palette) {
-            const viewport = document.getElementById('ui-viewport');
-            viewport.classList.remove('noir', 'lunar', 'vellum', 'amethyst');
-            viewport.classList.add(palette);
+            const body = document.getElementById('master-body');
+            body.classList.remove('noir-mode', 'lunar-mode', 'vellum-mode', 'amethyst-mode');
+            if (palette !== 'default') body.classList.add(`${palette}-mode`);
+            if (navigator.vibrate) navigator.vibrate(20);
         }
 
         document.addEventListener('DOMContentLoaded', initGrid);
