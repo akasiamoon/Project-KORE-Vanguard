@@ -39,19 +39,23 @@
         }
         @keyframes flatlineBreath { 0% { transform: scale(1) translateZ(0); } 100% { transform: scale(1.08) translateZ(0); } }
 
-        /* --- LAYER 2: SOMATIC HIJACK (COMPOSITOR ONLY) --- */
-        #glow-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 25%, var(--hijack-glow) 130%);
-            z-index: 5; pointer-events: none;
-            /* OPACITY-ONLY: Handled entirely by the compositor thread */
-            animation: flatlineGlow var(--unison-tempo) infinite alternate var(--unison-ease);
-            will-change: opacity;
-            opacity: 0.1;
-            transition: background 1.5s var(--unison-ease);
-        }
-        @keyframes flatlineGlow { 0% { opacity: 0.1; } 100% { opacity: 0.6; } }
+       /* --- LAYER 2: SOMATIC HIJACK (INTENSIFIED VIGNETTE) --- */
+#glow-layer {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    /* Gradient starts earlier (10%) and hits harder (Pax Amber at 80%) */
+    background: radial-gradient(circle at center, transparent 10%, var(--hijack-glow) 80%, var(--hijack-glow) 100%);
+    z-index: 5; pointer-events: none;
+    animation: flatlineGlow var(--unison-tempo) infinite alternate var(--unison-ease);
+    will-change: opacity;
+    /* Increased Base and Peak Opacity */
+    opacity: 0.15;
+    transition: background 1.5s var(--unison-ease);
+}
 
+@keyframes flatlineGlow { 
+    0% { opacity: 0.15; } 
+    100% { opacity: 0.75; } /* UNDENIABLE PEAK */
+}
         /* --- UI VIEWPORT --- */
         #ui-viewport {
             position: relative; z-index: 100;
