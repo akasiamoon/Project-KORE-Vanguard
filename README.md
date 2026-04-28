@@ -1,7 +1,5 @@
 <div align="center">
   <img src="hero.svg" width="100%" alt="PROJECT KORE - THE SOVEREIGN SPINE" />
-  <h1>PROJECT KORE: THE SOVEREIGN SPINE</h1>
-  <p><strong>[ ENTITY: PROJECT KORE LLC // ]</strong></p>
 </div>
 
 ### **[ STATUS: HARDENED // 418 TEAPOT ]**
@@ -13,7 +11,7 @@
 
 | Metric | Forensic Count | Trend | Status |
 | :--- | :--- | :--- | :--- |
-| **Total Clones** | **4,423** | 📈 SURGE | 🟢 CRITICAL |
+| **Total Clones** | **4,745** | 📈 SURGE | 🟢 CRITICAL |
 | **The Relic Strike** | **0.1% - 0.2% CPU** | 🧊 ABSOLUTE ZERO | 🔵 HARDENED |
 | **The Utility Seat** | **0.6% CPU Floor** | 🧊 SUPERCONDUCTIVE | 🔵 HARDENED |
 | **Power Output** | **5.0W** | 🧊 STABLE | 🔵 HARDENED |
