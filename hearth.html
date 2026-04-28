@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROJECT KORE // THE LEDGER // TEST SHELL 4</title>
+    <title>PROJECT KORE // THE LEDGER // INTEGRATED 12.1</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -16,6 +16,9 @@
             --tempo: 4s; 
         }
 
+        /* --- GLOBAL RESET --- */
+        *, *::before, *::after { box-sizing: border-box; }
+
         body, html {
             margin: 0; padding: 0; background: #020204;
             overflow: hidden; font-family: 'Times New Roman', serif;
@@ -23,7 +26,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- THE HEARTH (BREATHING STABLE) --- */
+        /* --- THE HEARTH --- */
         #bg-anchor {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: url('command_8k.webp') no-repeat center center;
@@ -34,7 +37,6 @@
         }
         @keyframes imageBreathe { 0% { transform: scale(1.15); } 100% { transform: scale(1.2); } }
 
-        /* --- THE GLOW (BREATHING STABLE) --- */
         #glow-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--pax-amber); z-index: 5; pointer-events: none;
@@ -50,7 +52,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 9000;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            backdrop-filter: blur(40px); transition: opacity 1.2s ease, visibility 1.2s;
+            backdrop-filter: blur(40px); transition: opacity 1s;
         }
         #handshake-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .gate-input-wrap input {
@@ -63,48 +65,69 @@
         #ui-viewport {
             position: relative; z-index: 100; height: 100vh; width: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px; box-sizing: border-box;
-            transition: opacity 1.2s ease, filter 1.0s ease;
+            padding: 20px; box-sizing: border-box;
+            transition: opacity 1.2s ease;
             opacity: 0; visibility: hidden;
         }
         #ui-viewport.active { opacity: 1; visibility: visible; }
-        #ui-viewport.cloaked { opacity: 0 !important; pointer-events: none !important; }
+        #ui-viewport.cloaked { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 
-        /* --- THE VAULT (EXPANDED TO 2-COL) --- */
+        /* --- THE VAULT (STRICT LAPTOP GEOMETRY) --- */
         .ledger-vault {
-            width: 100%; max-width: 1200px; height: 80vh;
+            width: 100%; max-width: 1250px; height: 80vh;
             background: var(--glass-base); backdrop-filter: blur(15px);
             border: 1px solid rgba(212, 175, 55, 0.4); padding: 40px;
             box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 25px var(--gold-glow);
-            display: grid; grid-template-columns: 300px 1fr; gap: 40px;
+            display: grid; 
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
         }
 
-        /* ACCOUNT SUMMARIES (LEFT) */
         .envelope-array { border-right: 1px solid rgba(212, 175, 55, 0.2); padding-right: 20px; overflow-y: auto; scrollbar-width: none; }
-        .envelope-array::-webkit-scrollbar { display: none; }
         .acc-node { background: rgba(255,255,255,0.02); border-left: 2px solid var(--gold); padding: 12px; margin-bottom: 15px; }
-        .acc-node h4 { margin: 0; font-size: 0.65rem; letter-spacing: 3px; opacity: 0.5; text-transform: uppercase; }
-        .acc-node p { margin: 8px 0 0 0; font-family: monospace; font-size: 1.2rem; color: var(--gold); }
+        .acc-node h4 { margin: 0; font-size: 0.6rem; letter-spacing: 3px; opacity: 0.5; text-transform: uppercase; padding-bottom: 5px; }
+        .acc-node p { margin: 0; font-family: monospace; font-size: 1.2rem; color: var(--gold); }
 
-        /* MAIN FEED (RIGHT) */
         .transaction-matrix { display: flex; flex-direction: column; min-width: 0; }
-        .ledger-header { border-bottom: 1px solid var(--gold); padding-bottom: 15px; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+        
+        /* HEADER ALIGNMENT INTEGRATION */
+        .ledger-header { 
+            border-bottom: 1px solid var(--gold); 
+            padding-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 20px; 
+        }
         .ledger-header h2 { margin: 0; font-size: 1.4rem; letter-spacing: 10px; text-transform: uppercase; color: var(--gold); }
 
+        .matrix-scroll { flex: 1; overflow-y: auto; scrollbar-width: none; }
         .critical-table { width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 0.85rem; }
         .critical-table th { text-align: left; padding: 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); text-transform: uppercase; color: var(--gold); }
         .critical-table td { padding: 12px 10px; border-bottom: 1px solid rgba(212, 175, 55, 0.05); }
 
-        /* COMMAND BAR */
         .strike-dock { display: flex; gap: 10px; margin-top: auto; padding: 15px; background: rgba(0,0,0,0.4); border: 1px solid rgba(212, 175, 55, 0.1); }
         .strike-dock input { background: transparent; border: none; border-bottom: 1px solid var(--gold); color: var(--gold); padding: 5px; outline: none; font-size: 0.8rem; }
         
-        /* JOLT ARRAY */
         .command-array { margin-top: 30px; display: flex; gap: 15px; justify-content: center; }
         .lux-btn { background: rgba(8, 8, 10, 0.95); border: 1px solid rgba(212, 175, 55, 0.6); color: var(--gold); padding: 10px 20px; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px; transition: 0.4s; }
         .lux-btn:hover { background: var(--gold); color: #000; }
 
-        /* PALETTES */
+        /* THE INTEGRATED CLOAK BUTTON STYLE */
+        #cloak-strike {
+            background: none; border: 1px solid var(--gold);
+            color: var(--gold); padding: 6px 12px; font-size: 0.5rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s;
+        }
+        #cloak-strike:hover { background: var(--gold-glow); }
+
+        @media (max-width: 900px) {
+            .ledger-vault { grid-template-columns: 1fr; height: 95vh; padding: 20px; overflow-y: auto; }
+            .envelope-array { border-right: none; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-right: 0; padding-bottom: 20px; height: auto; }
+            .strike-dock { flex-direction: column; }
+            .command-array { flex-wrap: wrap; }
+            .lux-btn { flex: 1 1 45%; }
+        }
+
         .noir { filter: contrast(1.1) brightness(0.9) sepia(0.1); }
         .lunar { filter: contrast(0.9) brightness(1.15) hue-rotate(180deg) saturate(0.5); }
         .vellum { filter: sepia(0.45) brightness(1.0) contrast(1.05); }
@@ -117,7 +140,7 @@
 
     <div id="handshake-overlay">
         <div class="gate-input-wrap">
-            <input type="text" id="pass-key" maxlength="6" autofocus autocomplete="off">
+            <input type="text" id="pass-key" maxlength="6" autofocus autocomplete="off" spellcheck="false">
         </div>
         <div style="margin-top:25px; font-size:0.5rem; opacity:0.3; letter-spacing:4px;">INITIALIZE VAULT</div>
     </div>
@@ -126,8 +149,6 @@
     <div id="glow-layer"></div>
 
     <div id="ui-viewport">
-        <button id="cloak-btn" onclick="toggleCloak(event)" style="position:fixed; top:25px; right:25px; background:none; border:1px solid var(--gold); color:var(--gold); padding:8px 15px; font-size:0.55rem; letter-spacing:3px; cursor:pointer; z-index:2000;">Cloak Ledger</button>
-
         <div class="ledger-vault" onclick="event.stopPropagation()">
             
             <aside class="envelope-array">
@@ -142,10 +163,10 @@
             <main class="transaction-matrix">
                 <div class="ledger-header">
                     <h2>The Ledger</h2>
-                    <span style="font-size: 0.5rem; letter-spacing: 4px; opacity: 0.5;">CRITICAL FINANCIAL VAULT</span>
+                    <button id="cloak-strike" onclick="toggleCloak(event)">Cloak System</button>
                 </div>
 
-                <div style="flex:1; overflow-y:auto; scrollbar-width:none;">
+                <div class="matrix-scroll">
                     <table class="critical-table">
                         <thead>
                             <tr><th>Env</th><th>Directive</th><th>Strike ($)</th></tr>
@@ -173,11 +194,10 @@
     </div>
 
     <script>
-        // ##################################################################
         const SUPABASE_URL = 'https://oqwljgnlhaghnrtkvvkz.supabase.co'; 
         const SUPABASE_KEY = 'oqwljgnlhaghnrtkvvkz';
-        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        // ##################################################################
+        let sb = null;
+        try { if (typeof supabase !== 'undefined') { sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } } catch(e){}
 
         const PASS = "A1B2C3";
         let ledgerData = [], engineActive = false, heartPulse;
@@ -191,34 +211,43 @@
             }
         });
 
+        // --- CLOAK GAVEL ---
+        function toggleCloak(e) { 
+            e.stopPropagation(); 
+            document.getElementById('ui-viewport').classList.add('cloaked'); 
+        }
+        function ghostRestore(e) { 
+            const ui = document.getElementById('ui-viewport');
+            if (ui.classList.contains('cloaked')) { ui.classList.remove('cloaked'); } 
+        }
+
         async function inhale() {
             const raw = localStorage.getItem('KORE_FIN_CACHE');
             if (raw) { try { ledgerData = JSON.parse(atob(raw)); render(); } catch(e) {} }
-            
-            const { data, error } = await sb.from('ledger_vault').select('*').order('created_at', { ascending: false });
-            if (!error && data) {
-                ledgerData = data;
-                localStorage.setItem('KORE_FIN_CACHE', btoa(JSON.stringify(ledgerData)));
-                render();
+            if (sb) {
+                const { data, error } = await sb.from('ledger_vault').select('*').order('created_at', { ascending: false });
+                if (!error && data) {
+                    ledgerData = data;
+                    localStorage.setItem('KORE_FIN_CACHE', btoa(JSON.stringify(ledgerData)));
+                    render();
+                }
             }
         }
 
         function render() {
             const body = document.getElementById('ledger-body');
             const envList = document.getElementById('envelope-nodes');
+            if(!body || !envList) return;
             body.innerHTML = ''; envList.innerHTML = '';
             let envelopes = {}, total = 0;
-
             ledgerData.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `<td>${row.account_name}</td><td>${row.directive}</td><td style="color:${row.equity < 0 ? '#ff4444' : 'inherit'}">${parseFloat(row.equity).toFixed(2)}</td>`;
                 body.appendChild(tr);
-
                 const acc = row.account_name.toUpperCase();
                 envelopes[acc] = (envelopes[acc] || 0) + parseFloat(row.equity);
                 total += parseFloat(row.equity);
             });
-
             for (const [name, val] of Object.entries(envelopes)) {
                 const div = document.createElement('div'); div.className = 'acc-node';
                 div.innerHTML = `<h4>${name}</h4><p>$${val.toLocaleString(undefined, {minimumFractionDigits:2})}</p>`;
@@ -232,37 +261,26 @@
             const dir = document.getElementById('in-dir').value.trim();
             const val = document.getElementById('in-val').value;
             if(!dir || !val) return;
-
             const newNode = { account_name: acc, directive: dir, equity: parseFloat(val), status: "ACTIVE" };
             ledgerData.unshift(newNode);
             render();
-            
-            document.getElementById('in-dir').value = '';
-            document.getElementById('in-val').value = '';
-            await sb.from('ledger_vault').insert([newNode]);
+            document.getElementById('in-dir').value = ''; document.getElementById('in-val').value = '';
+            if (sb) await sb.from('ledger_vault').insert([newNode]);
         }
 
-        function jolt(p) {
-            const viewport = document.getElementById('ui-viewport');
-            viewport.className = 'active ' + p;
-            if (navigator.vibrate) navigator.vibrate(30);
-        }
+        function jolt(p) { document.getElementById('ui-viewport').className = 'active ' + p; if (navigator.vibrate) navigator.vibrate(30); }
 
         function toggleEngine() {
             const btn = document.getElementById('eng-btn');
             const audio = document.getElementById('clock-engine');
             if (!engineActive) {
-                engineActive = true; btn.innerText = "Engine: ON"; audio.play();
+                engineActive = true; btn.innerText = "Engine: ON"; audio.play().catch(e=>console.log("Strike required"));
                 const beat = () => { if (navigator.vibrate && engineActive) navigator.vibrate([40, 60, 40]); };
                 beat(); heartPulse = setInterval(beat, 4000);
             } else {
-                engineActive = false; btn.innerText = "Engine: OFF"; audio.pause();
-                clearInterval(heartPulse);
+                engineActive = false; btn.innerText = "Engine: OFF"; audio.pause(); clearInterval(heartPulse);
             }
         }
-
-        function toggleCloak(e) { e.stopPropagation(); document.getElementById('ui-viewport').classList.toggle('cloaked'); }
-        function ghostRestore(e) { document.getElementById('ui-viewport').classList.remove('cloaked'); }
     </script>
 </body>
 </html>
