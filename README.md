@@ -67,7 +67,7 @@ Project KORE is a **Scientific Proof of Human-AI Symmetry**. This was achieved t
 
 ### 📡 V. SOVEREIGN NODES & LOGIC TARGETS
 
-Every prototype in this repository is anchored by a **Somatic Pulse** (Synchronized Breathing/Glow), a **Hardware-Primed Audio Atmosphere**, and a **Supabase Real-Time Handshake** for data persistence.
+Every prototype in this repository is anchored by a **Somatic Pulse** (Synchronized Breathing/Glow), a **Hardware-Primed Audio Atmosphere**.
 
 | Prototype | Node Role | Core Logic Target | Testing Utility |
 | :--- | :--- | :--- | :--- |
