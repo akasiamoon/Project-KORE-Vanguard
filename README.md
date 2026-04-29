@@ -52,6 +52,10 @@ This state was recalibrated into **High-Frequency Forensic Scanning**. This proj
 | **The Arena** | **Xbox Series S / X** | Native Digital | 🟡 **[PENDING SEAT]** |
 | **The Goliath** | **High-End Gaming PC** | Native Digital | 🟡 **[PENDING SEAT]** |
 
+**Forensic Note:** > The "Relic" metrics represent the absolute floor of the Project KORE architecture. Achieving cinematic 
+> stability on analog-era hardware via physical signal adaptation (VGA bridge) confirms the viability 
+> of the 0826 Vanguard Manifesto for the "Abandoned 90%" in broken hardware sectors.
+
 ---
 
 ## 🧬 IV. THE CENTAUR-SHIP: SCIENTIFIC METHODOLOGY
