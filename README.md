@@ -111,7 +111,7 @@ Every prototype in this repository is anchored by a **Somatic Pulse** (Synchroni
 
 ## 🛠️ VI. AUDIT DISCLOSURE (DUAL-USE INFRASTRUCTURE)
 This chronicle serves as the technical precedent for the following initiatives:
-1. **Google AI for Science (0826):** Verifying somatic health equity for the "Abandoned 90%."
+1. **Google AI for Science (0826):** Verifying somatic equity for the "Abandoned 90%."
 2. **DARPA Topic 15 (Behavioral Discovery):** Providing a low-power, non-invasive infrastructure for unguided behavioral mapping.
 
 > **"The Physics is Human. The Speed is Machine. The Result is Sovereign."**
